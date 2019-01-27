@@ -1,0 +1,22 @@
+apply plugin: 'com.jfrog.bintray'
+
+afterEvaluate {
+    // afterEvaluate is needed, otherwise platform-specific projects (JVM, JS) are not yet configured.
+    bintray {
+        user = System.getenv('BINTRAY_USER')
+        key = System.getenv('BINTRAY_API_KEY')
+        pkg {
+            repo = 'it.krzeminski'
+            name = 'PlotAssert'
+            licenses = ['MIT']
+            vcsUrl = 'https://github.com/krzema12/PlotAssert.git'
+            version {
+                name = '1.0.0'
+                desc = 'First release'
+                released = new Date()
+                vcsTag = '1.0.0'
+            }
+        }
+        publications = publishing.publications.collect { it.name }
+    }
+}
