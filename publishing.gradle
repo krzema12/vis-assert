@@ -5,6 +5,8 @@ afterEvaluate {
     bintray {
         user = System.getenv('BINTRAY_USER')
         key = System.getenv('BINTRAY_API_KEY')
+        // This config only creates an empty version on Bintray.
+        // Files have to be uploaded manually through Bintray website.
         pkg {
             repo = 'it.krzeminski'
             name = 'PlotAssert'
@@ -17,6 +19,5 @@ afterEvaluate {
                 vcsTag = '1.0.0'
             }
         }
-        publications = publishing.publications.collect { it.name }
     }
 }
