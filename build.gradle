@@ -9,6 +9,7 @@ buildscript {
 
 plugins {
     id 'kotlin-multiplatform' version '1.3.11'
+    id 'jacoco'
 }
 repositories {
     mavenCentral()
@@ -66,3 +67,21 @@ kotlin {
         }
     }
 }
+
+jacoco {
+    toolVersion = '0.8.3'
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: jvmTest) {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        sourceDirectories = files("$projectDir/src/commonMain/kotlin")
+        classDirectories = files("$buildDir/classes/kotlin/jvm/main")
+        executionData = files("$buildDir/jacoco/jvmTest.exec")
+    }
+}
+
+check.dependsOn jacocoTestReport
