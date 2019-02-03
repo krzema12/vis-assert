@@ -6,7 +6,6 @@ import it.krzeminski.testutils.plotassert.types.VisualisationColumn
 import it.krzeminski.testutils.plotassert.types.constraints.Constraint
 
 fun RawVisualisation.toConstraints(): List<Constraint> {
-    validateAllPartsOfVisualisationArePresent(this)
     validateAllStringsHaveTheSameLength(this)
 
     val xAxisMarkers = readXAxisMarkers(this)
@@ -15,11 +14,6 @@ fun RawVisualisation.toConstraints(): List<Constraint> {
     return this.columns.mapIndexedNotNull { xIndex, visualisationColumn ->
         buildConstraint(visualisationColumn, yAxisMarkers, xAxisMarkers, xIndex)
     }
-}
-
-private fun validateAllPartsOfVisualisationArePresent(rawVisualisation: RawVisualisation) {
-    requireNotNull(rawVisualisation.xAxis) { "X axis should be given!" }
-    requireNotNull(rawVisualisation.xAxis.markers) { "X axis markers should be given!" }
 }
 
 private fun validateAllStringsHaveTheSameLength(rawVisualisation: RawVisualisation) {
