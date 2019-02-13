@@ -7,6 +7,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
+/* ktlint-disable no-multi-spaces paren-spacing */
+
 class ReadingRawVisualisationTest {
     @Test
     fun realLifeExample() {
@@ -221,3 +223,5 @@ class ReadingRawVisualisationTest {
         }
     }
 }
+
+/* ktlint-disable no-multi-spaces paren-spacing */

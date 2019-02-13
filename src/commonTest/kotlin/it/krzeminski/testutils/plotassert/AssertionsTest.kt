@@ -2,10 +2,10 @@ package it.krzeminski.testutils.plotassert
 
 import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
-import kotlin.test.fail
+
+/* ktlint-disable no-multi-spaces paren-spacing */
 
 class AssertionsTest {
     @Test
@@ -42,3 +42,5 @@ class AssertionsTest {
         }
     }
 }
+
+/* ktlint-disable no-multi-spaces paren-spacing */

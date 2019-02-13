@@ -9,7 +9,8 @@ import it.krzeminski.testutils.plotassert.types.constraints.VerticalRangeConstra
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.fail
+
+/* ktlint-disable no-multi-spaces paren-spacing */
 
 class VisualisationToConstraintsConversionTest {
     @Test
@@ -88,3 +89,5 @@ class VisualisationToConstraintsConversionTest {
         }
     }
 }
+
+/* ktlint-disable no-multi-spaces paren-spacing */

@@ -4,7 +4,11 @@ import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
 import it.krzeminski.testutils.plotassert.types.constraints.YValueConstraint
 import it.krzeminski.testutils.plotassert.types.constraints.ConstraintBuilder
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class VisualisationColumnToConstraintMappingTest {
     @Test

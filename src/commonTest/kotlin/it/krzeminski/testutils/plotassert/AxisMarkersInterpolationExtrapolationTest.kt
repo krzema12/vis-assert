@@ -5,7 +5,6 @@ import it.krzeminski.testutils.plotassert.types.ValueBounds
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.fail
 
 class AxisMarkersInterpolationExtrapolationTest {
     @Test

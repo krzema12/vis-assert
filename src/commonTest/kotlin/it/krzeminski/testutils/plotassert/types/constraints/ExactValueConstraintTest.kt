@@ -3,7 +3,11 @@ package it.krzeminski.testutils.plotassert.types.constraints
 import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ExactValueConstraintTest {
     @Test

@@ -4,7 +4,6 @@ import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.fail
 
 class ConstraintTest {
     @Test
