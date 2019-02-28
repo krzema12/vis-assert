@@ -16,22 +16,22 @@ looks at a single X value of the function and performs a certain check on its Y 
 @Test
 fun sineWaveFor2HzOnePeriod() {
     assertFunctionConformsTo(
-            functionUnderTest = sineWaveOnePeriod(2.0f),
+            functionUnderTest = sineWave(frequency = 2.0f),
             visualisation = {
-                row(1.0f,   "        IIXII                                                                    ")
-                row(        "     III     III                                                                 ")
-                row(        "    I           I                                                                ")
-                row(        "  II             II                                                              ")
-                row(        " I                 I                                                             ")
-                row(0.0f,   "X                   I                   IXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                row(        "                     I                 I                                         ")
-                row(        "                      II             II                                          ")
-                row(        "                        I           I                                            ")
-                row(        "                         III     III                                             ")
-                row(-1.0f,  "                            IIIII                                                ")
+                row(1.0f,   "        IIXII                            ")
+                row(        "     III     III                         ")
+                row(        "    I           I                        ")
+                row(        "  II             II                      ")
+                row(        " I                 I                     ")
+                row(0.0f,   "X                   I                   I")
+                row(        "                     I                 I ")
+                row(        "                      II             II  ")
+                row(        "                        I           I    ")
+                row(        "                         III     III     ")
+                row(-1.0f,  "                            IIIII        ")
                 xAxis {
-                    markers("|                   |                   |                   |                   |")
-                    values( 0.0f,               0.25f,              0.5f,               0.75f,              1.0f)
+                    markers("|                   |                   |")
+                    values( 0.0f,               0.25f,              0.5f)
                 }
             })
 }
