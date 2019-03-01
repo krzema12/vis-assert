@@ -9,7 +9,7 @@ import kotlin.test.assertTrue
 
 class AssertionsTest {
     @Test
-    fun assertFunctionConformsToWhenAssertionsAreFulfilled() {
+    fun `assertFunctionConformsTo() when assertions are fulfilled`() {
         assertFunctionConformsTo(
                 functionUnderTest = { 1.0f },
                 visualisation = {
@@ -24,7 +24,7 @@ class AssertionsTest {
     }
 
     @Test
-    fun assertFunctionConformsToWhenOneAssertionFails() {
+    fun `assertFunctionConformsTo() when one assertion fails`() {
         assertFailsWith<FailedConstraintException> {
             assertFunctionConformsTo(
                     functionUnderTest = { 1.0f },
