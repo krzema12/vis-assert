@@ -35,6 +35,38 @@ class VisualisationToConstraintsConversionTest {
     }
 
     @Test
+    fun simpleLinearFunctionForMultipleSamplesPerCharacter() {
+        assertEquals(
+            actual = RawVisualisation(
+                visualisationRows = listOf(
+                    VisualisationRow("  I", 4.0f),
+                    VisualisationRow(" XI"),
+                    VisualisationRow("X  ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers =        "| |",
+                    values = listOf(-1.0f, 1.0f)))
+                .toConstraints(samplesPerCharacter = 4),
+            expected = listOf(
+                Constraint(x = -1.375f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+                Constraint(x = -1.125f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+                Constraint(x = -0.875f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+                Constraint(x = -0.625f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+
+                Constraint(x = -0.375f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+                Constraint(x = -0.125f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+                Constraint(x = 0.125f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+                Constraint(x = 0.375f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+
+                Constraint(x = 0.625f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
+                Constraint(x = 0.875f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
+                Constraint(x = 1.125f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
+                Constraint(x = 1.375f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f))
+            )
+        )
+    }
+
+    @Test
     fun someColumnsMissingConstraints() {
         assertEquals(
                 actual = RawVisualisation(

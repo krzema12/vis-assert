@@ -10,7 +10,7 @@ to make sure that the jump movement is fluent and fast enough.
 Under the hood, each such ASCII visualisation is translated into a collection of *constraints*, where each constraint
 looks at a single X value of the function and performs a certain check on its Y value at this point.
 
-# Example
+# Examples
 
 ```kotlin
 @Test
@@ -37,6 +37,37 @@ fun sineWaveFor2HzOnePeriod() {
 }
 ```
 
+or for high-frequency function and higher sampling:
+
+```kotlin
+    @Test
+    fun assertFunctionConformsToForHighFrequencyFunctionWhenAssertionsAreFulfilledAndSamplingHigherThan1IsUsed() {
+        assertFunctionConformsTo(
+            functionUnderTest = { x: Float -> (sin(100*x) * sin(x) * x * 0.3).toFloat() },
+            samplesPerCharacter = 100,
+            visualisation = {
+                row( 2.0f,  "                                                                   ")
+                row(        "                                                                   ")
+                row(        "                                               IIIIIIIIIIIIII      ")
+                row( 1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
+                row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
+                row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+                row( 0.0f,  "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+                row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+                row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
+                row(-1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
+                row(        "                                               IIIIIIIIIIIIII      ")
+                row(        "                                                                   ")
+                row(-2.0f,  "                                                                   ")
+                xAxis {
+                    markers("|          |          |          |          |          |          |")
+                    values( 0.0f,      1.0f,      2.0f,      3.0f,      4.0f,      5.0f,      6.0f)
+                }
+            }
+        )
+    }
+```
+
 Where:
 
 * `I` characters mean that for a given X argument, the function's value can be in a certain range around a given Y
@@ -49,9 +80,9 @@ PlotAssert was created for.
 
 # Limitations
 
-* the library performs sampling, as given by the `xAxis` description. It means that if two subsequent X values are 0.2
-  and 0.3, the library doesn't check what happens in between, for example for 0.25 or 0.20001. In most cases, though,
-  it's enough (or rather way better than nothing).
+* the library performs sampling, as given by the `xAxis` description and `samplesPerCharacter` parameter. It means that
+  if two subsequent X values are 0.2 and 0.3, and not enough sampling rate is given, the library may not check what
+  happens for 0.25 or 0.20001. In most cases, such simple sampling is enough.
 * only `(Float) -> Float` functions are currently supported. Mitigation: it's possible to assert on any other function,
   as long as it can be presented as a `(Float) -> Float` function. See [this example](https://github.com/krzema12/fsynth/blob/feb05893b14fba0f7a780dc546d1ad806bb2bfbf/core/src/test/kotlin/it/krzeminski/fsynth/RenderingTest.kt#L23)
   for adapting an `(Int) -> Float` function
