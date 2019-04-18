@@ -40,32 +40,32 @@ fun sineWaveFor2HzOnePeriod() {
 or for high-frequency function and higher sampling:
 
 ```kotlin
-    @Test
-    fun assertFunctionConformsToForHighFrequencyFunctionWhenAssertionsAreFulfilledAndSamplingHigherThan1IsUsed() {
-        assertFunctionConformsTo(
-            functionUnderTest = { x: Float -> (sin(100*x) * sin(x) * x * 0.3).toFloat() },
-            samplesPerCharacter = 100,
-            visualisation = {
-                row( 2.0f,  "                                                                   ")
-                row(        "                                                                   ")
-                row(        "                                               IIIIIIIIIIIIII      ")
-                row( 1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
-                row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
-                row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-                row( 0.0f,  "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-                row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-                row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
-                row(-1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
-                row(        "                                               IIIIIIIIIIIIII      ")
-                row(        "                                                                   ")
-                row(-2.0f,  "                                                                   ")
-                xAxis {
-                    markers("|          |          |          |          |          |          |")
-                    values( 0.0f,      1.0f,      2.0f,      3.0f,      4.0f,      5.0f,      6.0f)
-                }
+@Test
+fun assertFunctionConformsToForHighFrequencyFunctionWhenAssertionsAreFulfilledAndSamplingHigherThan1IsUsed() {
+    assertFunctionConformsTo(
+        functionUnderTest = { x: Float -> (sin(100*x) * sin(x) * x * 0.3).toFloat() },
+        samplesPerCharacter = 100,
+        visualisation = {
+            row( 2.0f,  "                                                                   ")
+            row(        "                                                                   ")
+            row(        "                                               IIIIIIIIIIIIII      ")
+            row( 1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
+            row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row( 0.0f,  "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(-1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
+            row(        "                                               IIIIIIIIIIIIII      ")
+            row(        "                                                                   ")
+            row(-2.0f,  "                                                                   ")
+            xAxis {
+                markers("|          |          |          |          |          |          |")
+                values( 0.0f,      1.0f,      2.0f,      3.0f,      4.0f,      5.0f,      6.0f)
             }
-        )
-    }
+        }
+    )
+}
 ```
 
 Where:
