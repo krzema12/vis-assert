@@ -1,5 +1,15 @@
 [![Build Status](https://travis-ci.com/krzema12/PlotAssert.svg?branch=master)](https://travis-ci.com/krzema12/PlotAssert) [![codecov](https://codecov.io/gh/krzema12/PlotAssert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/PlotAssert) [ ![Download](https://api.bintray.com/packages/krzema1212/it.krzeminski/PlotAssert/images/download.svg) ](https://bintray.com/krzema1212/it.krzeminski/PlotAssert/_latestVersion)
 
+# ⚠️ Release status
+
+This library is in a "proof of concept" stage:
+* the API is unstable and may change in a non-backward-compatible way,
+* it's hard to write the tests, it requires creating the visualization column by column
+* failed assertions produce messages that are hard to relate to the function
+* it contains several known bugs
+
+Feel free to experiment with it, but avoid using in production.
+
 # What is PlotAssert?
 
 It's a Kotlin library to write visually appealing ASCII-art-like test assertions for math functions. For example, you
