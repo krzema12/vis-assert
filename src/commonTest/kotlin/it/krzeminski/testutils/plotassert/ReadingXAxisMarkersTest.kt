@@ -20,12 +20,12 @@ class ReadingXAxisMarkersTest {
                                         VisualisationRow("   I  I ", -1.0f)
                                 ),
                                 xAxis = RawXAxis(
-                                        markers = "  | |  |",
+                                        markers = "|   |  |",
                                         values = listOf(-2.0f, 1.0f, 4.5f))
                         )
                 ),
                 listOf(
-                        AxisMarker(value = -2.0f, characterIndex = 2),
+                        AxisMarker(value = -2.0f, characterIndex = 0),
                         AxisMarker(value = 1.0f, characterIndex = 4),
                         AxisMarker(value = 4.5f, characterIndex = 7)
                 )
@@ -61,7 +61,7 @@ class ReadingXAxisMarkersTest {
                                     VisualisationRow("   I  I ", -1.0f)
                             ),
                             xAxis = RawXAxis(
-                                    markers = "  | |  |",
+                                    markers = "|   |  |",
                                     values = listOf(3.0f, 2.0f, 1.0f))
                     )
             )
@@ -107,6 +107,44 @@ class ReadingXAxisMarkersTest {
             )
         }.let { e ->
             assertEquals("Illegal characters given in X axis markers string, only ('|', ' ') are allowed!", e.message)
+        }
+    }
+
+    @Test
+    fun xAxisFirstColumnDoesNotHaveMarker() {
+        assertFailsWith<IllegalArgumentException> {
+            readXAxisMarkers(
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 1.0f),
+                        VisualisationRow(" III  II", 0.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "   |   |",
+                        values = listOf(0.0f, 1.0f))
+                )
+            )
+        }.let { e ->
+            assertEquals("X axis should have markers for first and last column!", e.message)
+        }
+    }
+
+    @Test
+    fun xAxisLastColumnDoesNotHaveMarker() {
+        assertFailsWith<IllegalArgumentException> {
+            readXAxisMarkers(
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 1.0f),
+                        VisualisationRow(" III  II", 0.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|   |   ",
+                        values = listOf(0.0f, 1.0f))
+                )
+            )
+        }.let { e ->
+            assertEquals("X axis should have markers for first and last column!", e.message)
         }
     }
 }

@@ -30,6 +30,7 @@ private fun validate(rawVisualisation: RawVisualisation) {
     validateIfLegalCharactersUsed(rawVisualisation.xAxis.markers)
     validateIfNumberOfMarkersMatchesNumberOfValues(rawVisualisation.xAxis)
     validateIfAtLeastTwoMarkers(rawVisualisation.xAxis.values)
+    validateIfFirstAndLastColumnHaveMarkers(rawVisualisation.xAxis.markers)
     validateIfMarkerValuesIncreaseMonotonically(rawVisualisation.xAxis.values)
 }
 
@@ -52,6 +53,12 @@ private fun validateIfNumberOfMarkersMatchesNumberOfValues(xAxis: RawXAxis) {
 private fun validateIfAtLeastTwoMarkers(values: List<Float>) {
     val numberOfMarkers = values.count()
     require(values.count() >= 2) { "$numberOfMarkers X axis marker(s) found, and there should be at least two!" }
+}
+
+private fun validateIfFirstAndLastColumnHaveMarkers(markers: String) {
+    require(markers.first() == markerCharacter && markers.last() == markerCharacter) {
+        "X axis should have markers for first and last column!"
+    }
 }
 
 private fun validateIfMarkerValuesIncreaseMonotonically(visualisationRows: List<Float>) {

@@ -23,6 +23,7 @@ fun readYAxisMarkers(rawVisualisation: RawVisualisation): List<AxisMarker> {
 
 private fun validate(rawVisualisation: RawVisualisation) {
     validateIfAtLeastTwoMarkers(rawVisualisation.visualisationRows)
+    validateIfFirstAndLastRowHaveMarkers(rawVisualisation.visualisationRows)
     validateIfMarkerValuesIncreaseMonotonically(rawVisualisation.visualisationRows)
 }
 
@@ -30,6 +31,12 @@ private fun validateIfAtLeastTwoMarkers(visualisationRows: List<VisualisationRow
     val numberOfMarkers = visualisationRows.mapNotNull { it.yAxisMarkerValue }.count()
     require(numberOfMarkers >= 2) {
         "$numberOfMarkers Y axis marker(s) found, and there should be at least two!" }
+}
+
+private fun validateIfFirstAndLastRowHaveMarkers(visualisationRows: List<VisualisationRow>) {
+    require(visualisationRows.first().yAxisMarkerValue != null && visualisationRows.last().yAxisMarkerValue != null) {
+        "Y axis should have markers for first and last row!"
+    }
 }
 
 private fun validateIfMarkerValuesIncreaseMonotonically(visualisationRows: List<VisualisationRow>) {

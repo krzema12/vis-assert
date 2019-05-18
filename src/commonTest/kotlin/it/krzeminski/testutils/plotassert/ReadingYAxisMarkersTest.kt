@@ -21,8 +21,7 @@ class ReadingYAxisMarkersTest {
                                         VisualisationRow("   I  I "),
                                         VisualisationRow(" III  II", 0.0f),
                                         VisualisationRow("   II I "),
-                                        VisualisationRow("    X   ", -1.0f),
-                                        VisualisationRow("    X   ")
+                                        VisualisationRow("    X   ", -1.0f)
                                 ),
                                 xAxis = RawXAxis(
                                         markers = "|      |",
@@ -119,6 +118,46 @@ class ReadingYAxisMarkersTest {
             fail("It should throw ${IllegalArgumentException::class}!")
         }.let { e ->
             assertEquals("1 Y axis marker(s) found, and there should be at least two!", e.message)
+        }
+    }
+
+    @Test
+    fun yAxisFirstColumnDoesNotHaveMarker() {
+        assertFailsWith<IllegalArgumentException> {
+            readYAxisMarkers(
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   "),
+                        VisualisationRow(" III  II", 1.0f),
+                        VisualisationRow(" III  II", 0.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f))
+                )
+            )
+        }.let { e ->
+            assertEquals("Y axis should have markers for first and last row!", e.message)
+        }
+    }
+
+    @Test
+    fun yAxisLastColumnDoesNotHaveMarker() {
+        assertFailsWith<IllegalArgumentException> {
+            readYAxisMarkers(
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 1.0f),
+                        VisualisationRow(" III  II", 0.0f),
+                        VisualisationRow(" III  II")
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f))
+                )
+            )
+        }.let { e ->
+            assertEquals("Y axis should have markers for first and last row!", e.message)
         }
     }
 }
