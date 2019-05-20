@@ -41,10 +41,16 @@ private fun buildConstraints(
     val xValueBounds = computeValueBounds(xAxisMarkers, xIndex)
     val evenlyDistributedXPoints = xValueBounds.evenlyDistributedPointsBetweenBounds(samplesPerCharacter)
 
-    return evenlyDistributedXPoints.map { xPointBetweenBounds ->
-        yValueConstraint?.let {
-            Constraint(x = xPointBetweenBounds, yValueConstraint = yValueConstraint)
-        }
+    val minX = computeValueBounds(xAxisMarkers, xAxisMarkers.first().characterIndex).center
+    val maxX = computeValueBounds(xAxisMarkers, xAxisMarkers.last().characterIndex).center
+    val isWithinXDomain = { x: Float -> x in minX..maxX }
+
+    return evenlyDistributedXPoints
+        .filter { isWithinXDomain(it) }
+        .map { xPointBetweenBounds ->
+            yValueConstraint?.let {
+                Constraint(x = xPointBetweenBounds, yValueConstraint = yValueConstraint)
+            }
     }
 }
 
