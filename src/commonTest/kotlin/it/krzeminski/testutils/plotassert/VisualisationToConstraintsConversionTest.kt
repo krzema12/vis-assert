@@ -35,7 +35,7 @@ class VisualisationToConstraintsConversionTest {
     }
 
     @Test
-    fun simpleLinearFunctionForMultipleSamplesPerCharacter() {
+    fun simpleLinearFunctionForEvenSamplesPerCharacter() {
         assertEquals(
             actual = RawVisualisation(
                 visualisationRows = listOf(
@@ -62,6 +62,35 @@ class VisualisationToConstraintsConversionTest {
                 Constraint(x = 0.875f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
                 Constraint(x = 1.125f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
                 Constraint(x = 1.375f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f))
+            )
+        )
+    }
+
+    @Test
+    fun simpleLinearFunctionForOddSamplesPerCharacter() {
+        assertEquals(
+            actual = RawVisualisation(
+                visualisationRows = listOf(
+                    VisualisationRow("  I", 4.0f),
+                    VisualisationRow(" XI"),
+                    VisualisationRow("X  ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers =        "| |",
+                    values = listOf(-6.0f, 6.0f)))
+                .toConstraints(samplesPerCharacter = 3),
+            expected = listOf(
+                Constraint(x = -8.0f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+                Constraint(x = -6.0f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+                Constraint(x = -4.0f, yValueConstraint = ExactValueConstraint(y = 2.0f)),
+
+                Constraint(x = -2.0f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+                Constraint(x = 0.0f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+                Constraint(x = 2.0f, yValueConstraint = ExactValueConstraint(y = 3.0f)),
+
+                Constraint(x = 4.0f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
+                Constraint(x = 6.0f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f)),
+                Constraint(x = 8.0f, yValueConstraint = VerticalRangeConstraint(minY = 2.5f, maxY = 4.5f))
             )
         )
     }
