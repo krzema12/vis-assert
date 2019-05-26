@@ -2,7 +2,7 @@ package it.krzeminski.testutils.plotassert
 
 import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
-import it.krzeminski.testutils.plotassert.types.constraints.YValueConstraint
+import it.krzeminski.testutils.plotassert.types.constraints.Constraint
 import it.krzeminski.testutils.plotassert.types.constraints.ConstraintBuilder
 import it.krzeminski.testutils.plotassert.types.constraints.getAvailableConstraintBuilders
 
@@ -10,11 +10,12 @@ import it.krzeminski.testutils.plotassert.types.constraints.getAvailableConstrai
  * Returns null when the given column doesn't specify any constraint.
  */
 fun mapVisualisationColumnToConstraint(
+    xValue: Float,
     column: VisualisationColumn,
     yAxisMarkers: List<AxisMarker>,
     getAvailableConstraintBuilders:
     () -> List<ConstraintBuilder> = ::getAvailableConstraintBuilders
-): YValueConstraint?
+): Constraint?
 {
     if (onlySpaces(column)) {
         return null
@@ -30,7 +31,7 @@ fun mapVisualisationColumnToConstraint(
         }
     }
     val builderToUse = buildersAcceptingThisColumn.first()
-    return builderToUse.buildConstraintFromColumn(column, yAxisMarkers)
+    return builderToUse.buildConstraintFromColumn(xValue, column, yAxisMarkers)
 }
 
 private fun onlySpaces(column: VisualisationColumn) =

@@ -6,12 +6,14 @@ import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
 
 data class VerticalRangeConstraint(
+    override val x: Float,
     private val minY: Float,
     private val maxY: Float
-) : YValueConstraint() {
-    override fun assertMatches(yValue: Float) {
+) : Constraint {
+    override fun assertMatches(function: (Float) -> Float) {
+        val yValue = function(x)
         if (yValue !in minY..maxY) {
-            throw FailedConstraintException("$yValue is not between $minY and $maxY!")
+            throw FailedConstraintException("For x=$x: $yValue is not between $minY and $maxY!")
         }
     }
 }
@@ -29,9 +31,10 @@ object VerticalRangeConstraintBuilder : ConstraintBuilder() {
     }
 
     override fun buildConstraintFromColumn(
+        x: Float,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
-    ): YValueConstraint
+    ): Constraint
     {
         val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'I' }
         val indexOfLastCharacter = column.characters.indexOfLast { it == 'I' }
@@ -39,6 +42,6 @@ object VerticalRangeConstraintBuilder : ConstraintBuilder() {
         val lastCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfLastCharacter)
 
         return VerticalRangeConstraint(
-                minY = lastCharacterValueBounds.lowerBound, maxY = firstCharacterValueBounds.upperBound)
+                x, minY = lastCharacterValueBounds.lowerBound, maxY = firstCharacterValueBounds.upperBound)
     }
 }

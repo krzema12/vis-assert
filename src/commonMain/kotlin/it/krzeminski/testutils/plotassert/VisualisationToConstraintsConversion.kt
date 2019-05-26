@@ -37,7 +37,8 @@ private fun buildConstraints(
     samplesPerCharacter: Int
 ): List<Constraint?>
 {
-    val yValueConstraint = mapVisualisationColumnToConstraint(visualisationColumn, yAxisMarkers)
+    val buildConstraint = { xValue: Float ->
+        mapVisualisationColumnToConstraint(xValue, visualisationColumn, yAxisMarkers) }
     val xValueBounds = computeValueBounds(xAxisMarkers, xIndex)
     val evenlyDistributedXPoints = xValueBounds.evenlyDistributedPointsBetweenBounds(samplesPerCharacter)
 
@@ -47,11 +48,7 @@ private fun buildConstraints(
 
     return evenlyDistributedXPoints
         .filter { isWithinXDomain(it) }
-        .map { xPointBetweenBounds ->
-            yValueConstraint?.let {
-                Constraint(x = xPointBetweenBounds, yValueConstraint = yValueConstraint)
-            }
-    }
+        .map { xPointBetweenBounds -> buildConstraint(xPointBetweenBounds) }
 }
 
 private fun ValueBounds.evenlyDistributedPointsBetweenBounds(numberOfPoints: Int): List<Float> {

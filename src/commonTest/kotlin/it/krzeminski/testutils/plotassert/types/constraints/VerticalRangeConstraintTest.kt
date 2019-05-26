@@ -12,39 +12,39 @@ import kotlin.test.assertTrue
 class VerticalRangeConstraintTest {
     @Test
     fun assertMatchesWhenInTheMiddleOfRange() {
-        VerticalRangeConstraint(minY = 1.0f, maxY = 2.0f)
-                .assertMatches(1.5f)
+        VerticalRangeConstraint(x = 1.0f, minY = 1.0f, maxY = 2.0f)
+                .assertMatches { 1.5f }
     }
 
     @Test
     fun assertMatchesWhenOnLowerBoundOfRange() {
-        VerticalRangeConstraint(minY = 1.0f, maxY = 2.0f)
-                .assertMatches(1.0f)
+        VerticalRangeConstraint(x = 1.0f, minY = 1.0f, maxY = 2.0f)
+                .assertMatches { 1.0f }
     }
 
     @Test
     fun assertMatchesWhenOnUpperBoundOfRange() {
-        VerticalRangeConstraint(minY = 1.0f, maxY = 2.0f)
-                .assertMatches(2.0f)
+        VerticalRangeConstraint(x = 1.0f, minY = 1.0f, maxY = 2.0f)
+                .assertMatches { 2.0f }
     }
 
     @Test
     fun assertDoesNotMatchBecauseAboveRange() {
         assertFailsWith<FailedConstraintException> {
-            VerticalRangeConstraint(minY = 1.0f, maxY = 2.0f)
-                    .assertMatches(3.0f)
+            VerticalRangeConstraint(x = 1.0f, minY = 1.0f, maxY = 2.0f)
+                    .assertMatches { 3.0f }
         }.let { e ->
-            assertTrue(e.message in setOf("3.0 is not between 1.0 and 2.0!", "3 is not between 1 and 2!"))
+            assertTrue(e.message in setOf("For x=1.0: 3.0 is not between 1.0 and 2.0!", "For x=1: 3 is not between 1 and 2!"))
         }
     }
 
     @Test
     fun assertDoesNotMatchBecauseBelowRange() {
         assertFailsWith<FailedConstraintException> {
-            VerticalRangeConstraint(minY = 1.0f, maxY = 2.0f)
-                .assertMatches(0.0f)
+            VerticalRangeConstraint(x = 1.0f, minY = 1.0f, maxY = 2.0f)
+                .assertMatches { 0.0f }
         }.let { e ->
-            assertTrue(e.message in setOf("0.0 is not between 1.0 and 2.0!", "0 is not between 1 and 2!"))
+            assertTrue(e.message in setOf("For x=1.0: 0.0 is not between 1.0 and 2.0!", "For x=1: 0 is not between 1 and 2!"))
         }
     }
 
@@ -88,26 +88,29 @@ class VerticalRangeConstraintTest {
     fun singleCapitalICharacterBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
+                        x = 1.23f,
                         column = VisualisationColumn("   I "),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
-                expected = VerticalRangeConstraint(minY = 1.5f, maxY = 2.5f))
+                expected = VerticalRangeConstraint(x = 1.23f, minY = 1.5f, maxY = 2.5f))
     }
 
     @Test
     fun manySubsequentICharactersBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
+                        x = 1.23f,
                         column = VisualisationColumn(" III "),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
-                expected = VerticalRangeConstraint(minY = 1.5f, maxY = 4.5f))
+                expected = VerticalRangeConstraint(x = 1.23f, minY = 1.5f, maxY = 4.5f))
     }
 
     @Test
     fun manySubsequentICharactersWithoutSpaceBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
+                        x = 1.23f,
                         column = VisualisationColumn("IIIII"),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
-                expected = VerticalRangeConstraint(minY = 0.5f, maxY = 5.5f))
+                expected = VerticalRangeConstraint(x = 1.23f, minY = 0.5f, maxY = 5.5f))
     }
 }

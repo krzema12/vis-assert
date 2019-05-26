@@ -12,27 +12,27 @@ import kotlin.test.assertTrue
 class ExactValueConstraintTest {
     @Test
     fun assertMatchesWhenEqualValues() {
-        ExactValueConstraint(1.0f)
-                .assertMatches(1.0f)
+        ExactValueConstraint(x = 0.0f, y = 1.0f)
+                .assertMatches { 1.0f }
     }
 
     @Test
     fun assertDoesNotMatchWhenReallyCloseValues() {
         assertFailsWith<FailedConstraintException> {
-            ExactValueConstraint(1.0f)
-                    .assertMatches(1.0000001f)
+            ExactValueConstraint(x = 1.23f, y = 1.0f)
+                    .assertMatches { 1.0000001f }
         }.let { e ->
-            assertTrue(e.message in setOf("1.0000001 is not equal to 1.0!", "1.0000001 is not equal to 1!"))
+            assertTrue(e.message in setOf("For x=1.23: 1.0000001 is not equal to 1.0!", "For x=1.23: 1.0000001 is not equal to 1!"))
         }
     }
 
     @Test
     fun assertDoesNotMatch() {
         assertFailsWith<FailedConstraintException> {
-            ExactValueConstraint(1.0f)
-                    .assertMatches(3.0f)
+            ExactValueConstraint(x = 1.23f, y = 1.0f)
+                    .assertMatches { 3.0f }
         }.let { e ->
-            assertTrue(e.message in setOf("3.0 is not equal to 1.0!", "3 is not equal to 1!"))
+            assertTrue(e.message in setOf("For x=1.23: 3.0 is not equal to 1.0!", "For x=1.23: 3 is not equal to 1!"))
         }
     }
 
@@ -64,8 +64,9 @@ class ExactValueConstraintTest {
     fun singleXCharacterBuildConstraint() {
         assertEquals(
                 actual = ExactValueConstraintBuilder.buildConstraintFromColumn(
+                        x = 1.23f,
                         column = VisualisationColumn("   X "),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
-                expected = ExactValueConstraint(2.0f))
+                expected = ExactValueConstraint(x = 1.23f, y = 2.0f))
     }
 }
