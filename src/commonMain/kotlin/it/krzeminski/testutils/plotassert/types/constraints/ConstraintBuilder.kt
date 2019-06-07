@@ -10,7 +10,7 @@ abstract class ConstraintBuilder {
      * true for the given [column].
      */
     abstract fun buildConstraintFromColumn(
-        x: Float,
+        xValues: List<Float>,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
     ): Constraint

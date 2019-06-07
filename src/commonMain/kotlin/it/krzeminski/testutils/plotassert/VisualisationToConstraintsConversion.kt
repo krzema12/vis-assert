@@ -13,8 +13,8 @@ fun RawVisualisation.toConstraints(samplesPerCharacter: Int = 1): List<Constrain
     val yAxisMarkers = readYAxisMarkers(this)
 
     return this.columns.mapIndexed { xIndex, visualisationColumn ->
-        buildConstraints(visualisationColumn, yAxisMarkers, xAxisMarkers, xIndex, samplesPerCharacter)
-    }.flatten().filterNotNull()
+        buildConstraint(visualisationColumn, yAxisMarkers, xAxisMarkers, xIndex, samplesPerCharacter)
+    }.filterNotNull()
 }
 
 private fun validateAllStringsHaveTheSameLength(rawVisualisation: RawVisualisation) {
@@ -29,16 +29,14 @@ private fun validateAllStringsHaveTheSameLength(rawVisualisation: RawVisualisati
     }
 }
 
-private fun buildConstraints(
+private fun buildConstraint(
     visualisationColumn: VisualisationColumn,
     yAxisMarkers: List<AxisMarker>,
     xAxisMarkers: List<AxisMarker>,
     xIndex: Int,
     samplesPerCharacter: Int
-): List<Constraint?>
+): Constraint?
 {
-    val buildConstraint = { xValue: Float ->
-        mapVisualisationColumnToConstraint(xValue, visualisationColumn, yAxisMarkers) }
     val xValueBounds = computeValueBounds(xAxisMarkers, xIndex)
     val evenlyDistributedXPoints = xValueBounds.evenlyDistributedPointsBetweenBounds(samplesPerCharacter)
 
@@ -46,9 +44,9 @@ private fun buildConstraints(
     val maxX = computeValueBounds(xAxisMarkers, xAxisMarkers.last().characterIndex).center
     val isWithinXDomain = { x: Float -> x in minX..maxX }
 
-    return evenlyDistributedXPoints
-        .filter { isWithinXDomain(it) }
-        .map { xPointBetweenBounds -> buildConstraint(xPointBetweenBounds) }
+    val xPointsForConstraint = evenlyDistributedXPoints.filter { isWithinXDomain(it) }
+
+    return mapVisualisationColumnToConstraint(xPointsForConstraint, visualisationColumn, yAxisMarkers)
 }
 
 private fun ValueBounds.evenlyDistributedPointsBetweenBounds(numberOfPoints: Int): List<Float> {

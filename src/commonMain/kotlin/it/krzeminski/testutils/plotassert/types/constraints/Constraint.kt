@@ -1,7 +1,7 @@
 package it.krzeminski.testutils.plotassert.types.constraints
 
 interface Constraint {
-    val x: Float
+    val xValues: List<Float>
 
     fun assertMatches(function: (Float) -> Float)
 }

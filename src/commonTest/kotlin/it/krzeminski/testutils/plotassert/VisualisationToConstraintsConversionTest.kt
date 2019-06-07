@@ -26,9 +26,9 @@ class VisualisationToConstraintsConversionTest {
                                 values = listOf(-1.0f, 1.0f)))
                         .toConstraints(),
                 expected = listOf(
-                        ExactValueConstraint(x = -1.0f, y = 2.0f),
-                        ExactValueConstraint(x = 0.0f, y = 3.0f),
-                        VerticalRangeConstraint(x = 1.0f, minY = 2.5f, maxY = 4.5f)
+                        ExactValueConstraint(xValues = listOf(-1.0f), y = 2.0f),
+                        ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f),
+                        VerticalRangeConstraint(xValues = listOf(1.0f), minY = 2.5f, maxY = 4.5f)
                 )
         )
     }
@@ -47,16 +47,9 @@ class VisualisationToConstraintsConversionTest {
                     values = listOf(-1.0f, 1.0f)))
                 .toConstraints(samplesPerCharacter = 4),
             expected = listOf(
-                ExactValueConstraint(x = -0.875f, y = 2.0f),
-                ExactValueConstraint(x = -0.625f, y = 2.0f),
-
-                ExactValueConstraint(x = -0.375f, y = 3.0f),
-                ExactValueConstraint(x = -0.125f, y = 3.0f),
-                ExactValueConstraint(x = 0.125f, y = 3.0f),
-                ExactValueConstraint(x = 0.375f, y = 3.0f),
-
-                VerticalRangeConstraint(x = 0.625f, minY = 2.5f, maxY = 4.5f),
-                VerticalRangeConstraint(x = 0.875f, minY = 2.5f, maxY = 4.5f)
+                ExactValueConstraint(xValues = listOf(-0.875f, -0.625f), y = 2.0f),
+                ExactValueConstraint(xValues = listOf(-0.375f, -0.125f, 0.125f, 0.375f), y = 3.0f),
+                VerticalRangeConstraint(xValues = listOf(0.625f, 0.875f), minY = 2.5f, maxY = 4.5f)
             )
         )
     }
@@ -75,15 +68,9 @@ class VisualisationToConstraintsConversionTest {
                     values = listOf(-6.0f, 6.0f)))
                 .toConstraints(samplesPerCharacter = 3),
             expected = listOf(
-                ExactValueConstraint(x = -6.0f, y = 2.0f),
-                ExactValueConstraint(x = -4.0f, y = 2.0f),
-
-                ExactValueConstraint(x = -2.0f, y = 3.0f),
-                ExactValueConstraint(x = 0.0f, y = 3.0f),
-                ExactValueConstraint(x = 2.0f, y = 3.0f),
-
-                VerticalRangeConstraint(x = 4.0f, minY = 2.5f, maxY = 4.5f),
-                VerticalRangeConstraint(x = 6.0f, minY = 2.5f, maxY = 4.5f)
+                ExactValueConstraint(xValues = listOf(-6.0f, -4.0f), y = 2.0f),
+                ExactValueConstraint(xValues = listOf(-2.0f, 0.0f, 2.0f), y = 3.0f),
+                VerticalRangeConstraint(xValues = listOf(4.0f, 6.0f), minY = 2.5f, maxY = 4.5f)
             )
         )
     }
@@ -102,7 +89,7 @@ class VisualisationToConstraintsConversionTest {
                                 values = listOf(-1.0f, 1.0f)))
                         .toConstraints(),
                 expected = listOf(
-                        ExactValueConstraint(x = 0.0f, y = 3.0f)
+                        ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f)
                 )
         )
     }

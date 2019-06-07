@@ -10,7 +10,7 @@ import it.krzeminski.testutils.plotassert.types.constraints.getAvailableConstrai
  * Returns null when the given column doesn't specify any constraint.
  */
 fun mapVisualisationColumnToConstraint(
-    xValue: Float,
+    xValues: List<Float>,
     column: VisualisationColumn,
     yAxisMarkers: List<AxisMarker>,
     getAvailableConstraintBuilders:
@@ -31,7 +31,7 @@ fun mapVisualisationColumnToConstraint(
         }
     }
     val builderToUse = buildersAcceptingThisColumn.first()
-    return builderToUse.buildConstraintFromColumn(xValue, column, yAxisMarkers)
+    return builderToUse.buildConstraintFromColumn(xValues, column, yAxisMarkers)
 }
 
 private fun onlySpaces(column: VisualisationColumn) =

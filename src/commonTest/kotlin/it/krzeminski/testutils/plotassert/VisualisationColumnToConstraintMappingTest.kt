@@ -14,7 +14,7 @@ class VisualisationColumnToConstraintMappingTest {
     @Test
     fun oneConstraintMatches() {
         val constraintToReturn = object : Constraint {
-            override val x = 4.0f
+            override val xValues = listOf(4.0f)
             override fun assertMatches(function: (Float) -> Float) {
                 throw IllegalStateException("This method is irrelevant for this unit test.")
             }
@@ -22,13 +22,13 @@ class VisualisationColumnToConstraintMappingTest {
         val mockConstraintBuilder1 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = true
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>) =
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>) =
                     constraintToReturn
         }
         val mockConstraintBuilder2 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = false
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
                 throw IllegalStateException("This method is irrelevant for this unit test.")
             }
         }
@@ -36,7 +36,7 @@ class VisualisationColumnToConstraintMappingTest {
 
         assertEquals(
                 actual = mapVisualisationColumnToConstraint(
-                        4.0f,
+                        listOf(4.0f),
                         VisualisationColumn("MOCK VISUALISATION COLUMN"),
                         listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
                         mockGetAvailableConstraintBuilders),
@@ -47,7 +47,7 @@ class VisualisationColumnToConstraintMappingTest {
     fun noConstraintDesired() {
         assertEquals(
                 actual = mapVisualisationColumnToConstraint(
-                        4.0f,
+                        listOf(4.0f),
                         VisualisationColumn("     "),
                         listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
                 expected = null
@@ -59,14 +59,14 @@ class VisualisationColumnToConstraintMappingTest {
         val mockConstraintBuilder1 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = false
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
                 throw IllegalStateException("This method shouldn't be used  for this unit test.")
             }
         }
         val mockConstraintBuilder2 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = false
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
                 throw IllegalStateException("This method shouldn't be used  for this unit test.")
             }
         }
@@ -74,7 +74,7 @@ class VisualisationColumnToConstraintMappingTest {
 
         assertFailsWith<IllegalArgumentException> {
             mapVisualisationColumnToConstraint(
-                    4.0f,
+                    listOf(4.0f),
                     VisualisationColumn("MOCK VISUALISATION COLUMN"),
                     listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
                     mockGetAvailableConstraintBuilders)
@@ -88,14 +88,14 @@ class VisualisationColumnToConstraintMappingTest {
         val mockConstraintBuilder1 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = true
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
                 throw IllegalStateException("This method shouldn't be used  for this unit test.")
             }
         }
         val mockConstraintBuilder2 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = true
 
-            override fun buildConstraintFromColumn(x: Float, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
+            override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>): Constraint {
                 throw IllegalStateException("This method shouldn't be used  for this unit test.")
             }
         }
@@ -103,7 +103,7 @@ class VisualisationColumnToConstraintMappingTest {
 
         assertFailsWith<IllegalArgumentException> {
             mapVisualisationColumnToConstraint(
-                    4.0f,
+                    listOf(4.0f),
                     VisualisationColumn("MOCK VISUALISATION COLUMN"),
                     listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
                     mockGetAvailableConstraintBuilders)

@@ -10,13 +10,15 @@ import it.krzeminski.testutils.plotassert.types.VisualisationColumn
  * as not equal.
  */
 data class ExactValueConstraint(
-    override val x: Float,
+    override val xValues: List<Float>,
     private val y: Float
 ) : Constraint {
     override fun assertMatches(function: (Float) -> Float) {
-        val yValue = function(x)
-        if (y != yValue) {
-            throw FailedConstraintException("For x=$x: $yValue is not equal to $y!")
+        xValues.forEach { x ->
+            val yValue = function(x)
+            if (y != yValue) {
+                throw FailedConstraintException("For x=$x: $yValue is not equal to $y!")
+            }
         }
     }
 }
@@ -28,7 +30,7 @@ object ExactValueConstraintBuilder : ConstraintBuilder() {
             }
 
     override fun buildConstraintFromColumn(
-        x: Float,
+        xValues: List<Float>,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
     ): Constraint
@@ -36,6 +38,6 @@ object ExactValueConstraintBuilder : ConstraintBuilder() {
         val indexOfXCharacter = column.characters.indexOf('X')
         val valueBounds = computeValueBounds(yAxisMarkers, indexOfXCharacter)
 
-        return ExactValueConstraint(x, valueBounds.center)
+        return ExactValueConstraint(xValues, valueBounds.center)
     }
 }
