@@ -64,67 +64,67 @@ class VerticalRangeConstraintTest {
     }
 
     @Test
-    fun singleCapitalICharacterCheckIfMatches() {
+    fun singleSmallICharacterCheckIfMatches() {
         assertTrue(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
-                VisualisationColumn("   I ")))
+                VisualisationColumn("   i ")))
     }
 
     @Test
-    fun manySubsequentICharactersCheckIfMatches() {
+    fun manySubsequentSmallICharactersCheckIfMatches() {
         assertTrue(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
-                VisualisationColumn(" III ")))
+                VisualisationColumn(" iii ")))
     }
 
     @Test
-    fun manySubsequentICharactersWithoutSpaceCheckIfMatches() {
+    fun manySubsequentSmallICharactersWithoutSpaceCheckIfMatches() {
         assertTrue(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
-                VisualisationColumn("IIIII")))
+                VisualisationColumn("iiiii")))
     }
 
     @Test
-    fun capitalICharactersDividedBySpaceCheckIfMatches() {
+    fun smallICharactersDividedBySpaceCheckIfMatches() {
         assertFalse(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
-                VisualisationColumn(" I II")))
+                VisualisationColumn(" i ii")))
     }
 
     @Test
     fun mixedCharactersCheckIfMatches() {
         assertFalse(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
-                VisualisationColumn(" IIX ")))
+                VisualisationColumn(" iiX ")))
     }
 
     @Test
-    fun noCapitalICharacterCheckIfMatches() {
+    fun noSmallICharacterCheckIfMatches() {
         assertFalse(VerticalRangeConstraintBuilder.columnMatchesThisConstraintType(
                 VisualisationColumn("   X ")))
     }
 
     @Test
-    fun singleCapitalICharacterBuildConstraint() {
+    fun singleSmallICharacterBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
                         xValues = listOf(1.23f),
-                        column = VisualisationColumn("   I "),
+                        column = VisualisationColumn("   i "),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
                 expected = VerticalRangeConstraint(xValues = listOf(1.23f), minY = 1.5f, maxY = 2.5f))
     }
 
     @Test
-    fun manySubsequentICharactersBuildConstraint() {
+    fun manySubsequentSmallICharactersBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
                         xValues = listOf(1.23f),
-                        column = VisualisationColumn(" III "),
+                        column = VisualisationColumn(" iii "),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
                 expected = VerticalRangeConstraint(xValues = listOf(1.23f), minY = 1.5f, maxY = 4.5f))
     }
 
     @Test
-    fun manySubsequentICharactersWithoutSpaceBuildConstraint() {
+    fun manySubsequentSmallICharactersWithoutSpaceBuildConstraint() {
         assertEquals(
                 actual = VerticalRangeConstraintBuilder.buildConstraintFromColumn(
                         xValues = listOf(1.23f),
-                        column = VisualisationColumn("IIIII"),
+                        column = VisualisationColumn("iiiii"),
                         yAxisMarkers = listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
                 expected = VerticalRangeConstraint(xValues = listOf(1.23f), minY = 0.5f, maxY = 5.5f))
     }

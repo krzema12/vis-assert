@@ -22,10 +22,10 @@ data class VerticalRangeConstraint(
 
 object VerticalRangeConstraintBuilder : ConstraintBuilder() {
     override fun columnMatchesThisConstraintType(column: VisualisationColumn): Boolean {
-        val onlyLegalCharacters = setOf(' ', 'I').containsAll(column.characters.groupBy { it }.keys)
+        val onlyLegalCharacters = setOf(' ', 'i').containsAll(column.characters.groupBy { it }.keys)
         val noGapsBetweenLetters =
             column.characters
-                    .mapIndexedNotNull { index, character -> if (character == 'I') index else null }
+                    .mapIndexedNotNull { index, character -> if (character == 'i') index else null }
                     .zipWithNext { a, b -> b - a }
                     .all { difference -> difference == 1 }
 
@@ -38,8 +38,8 @@ object VerticalRangeConstraintBuilder : ConstraintBuilder() {
         yAxisMarkers: List<AxisMarker>
     ): Constraint
     {
-        val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'I' }
-        val indexOfLastCharacter = column.characters.indexOfLast { it == 'I' }
+        val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'i' }
+        val indexOfLastCharacter = column.characters.indexOfLast { it == 'i' }
         val firstCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfFirstCharacter)
         val lastCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfLastCharacter)
 
