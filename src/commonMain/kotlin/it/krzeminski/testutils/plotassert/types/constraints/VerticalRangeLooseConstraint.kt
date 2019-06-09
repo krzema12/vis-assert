@@ -5,7 +5,7 @@ import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
 
-data class VerticalRangeConstraint(
+data class VerticalRangeLooseConstraint(
     override val xValues: List<Float>,
     private val minY: Float,
     private val maxY: Float
@@ -20,7 +20,7 @@ data class VerticalRangeConstraint(
     }
 }
 
-object VerticalRangeConstraintBuilder : ConstraintBuilder() {
+object VerticalRangeLooseConstraintBuilder : ConstraintBuilder() {
     override fun columnMatchesThisConstraintType(column: VisualisationColumn): Boolean {
         val onlyLegalCharacters = setOf(' ', 'i').containsAll(column.characters.groupBy { it }.keys)
         val noGapsBetweenLetters =
@@ -43,7 +43,7 @@ object VerticalRangeConstraintBuilder : ConstraintBuilder() {
         val firstCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfFirstCharacter)
         val lastCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfLastCharacter)
 
-        return VerticalRangeConstraint(
+        return VerticalRangeLooseConstraint(
             xValues,
             minY = lastCharacterValueBounds.lowerBound,
             maxY = firstCharacterValueBounds.upperBound)
