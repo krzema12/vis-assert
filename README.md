@@ -60,12 +60,12 @@ fun assertFunctionConformsToForHighFrequencyFunctionWhenAssertionsAreFulfilledAn
             row(        "                                                                   ")
             row(        "                                               IIIIIIIIIIIIII      ")
             row( 1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
-            row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
-            row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "                   IIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "         IIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
             row( 0.0f,  "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-            row(        "        IIIIIIIIIIIIIIIIIIIIIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-            row(        "                  IIIIIIIII             IIIIIIIIIIIIIIIIIIIIIIIIIII")
-            row(-1.0f,  "                                           IIIIIIIIIIIIIIIIIIIII   ")
+            row(        "         IIIIIIIIIIIIIIIIIIIIIIII    IIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(        "                  IIIIIIII              IIIIIIIIIIIIIIIIIIIIIIIIIII")
+            row(-1.0f,  "                                            IIIIIIIIIIIIIIIIIIII   ")
             row(        "                                               IIIIIIIIIIIIII      ")
             row(        "                                                                   ")
             row(-2.0f,  "                                                                   ")
@@ -81,9 +81,12 @@ fun assertFunctionConformsToForHighFrequencyFunctionWhenAssertionsAreFulfilledAn
 Where:
 
 * `I` characters mean that for a given X argument, the function's value can be in a certain range around a given Y
-  value. In this example, each `I` character has a tolerance of +/- 0.1. The tolerance is calculated based on the
-  vertical axis description.
+  value. Also, this constraint is "strict", which means that making it wider or narrower vertically would make the
+  assertion fail. In this example, each `I` character has a tolerance of +/- 0.1. The tolerance is calculated based on
+  the vertical axis description.
 * `X` characters mean that for a given X argument, the function's value has to **exactly** match the given Y value.
+
+There's also `i` constraint, which just checks that all values are in a certain range.
 
 More examples can be found in unit tests for [krzema12/fsynth](https://github.com/krzema12/fsynth) - a project that
 PlotAssert was created for.
