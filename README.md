@@ -7,6 +7,7 @@ This library is in a "proof of concept" stage:
 * it's hard to write the tests, it requires creating the visualization column by column
 * failed assertions produce messages that are hard to relate to the function
 * it contains several known bugs
+* it's not yet available in any public repository
 
 Feel free to experiment with it, but avoid using in production.
 
@@ -102,20 +103,3 @@ PlotAssert was created for.
 * when assertions fail, the current message just says about failed first (x, y) constraint, going from the left. It's
   thus quite time-consuming to write a test. Ideally, if the assertion fails, PlotAssert should show how the ASCII
   visualisation could look like.
-
-# Installation
-
-In your `build.gradle`:
-
-```
-repositories {
-    maven {
-        url "https://dl.bintray.com/krzema1212/it.krzeminski"
-    }
-}
-
-dependencies {
-    testCompile "it.krzeminski:PlotAssert:1.0.0"
-}
-
-```
