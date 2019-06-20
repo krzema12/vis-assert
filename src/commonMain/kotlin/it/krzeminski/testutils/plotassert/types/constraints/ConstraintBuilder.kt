@@ -19,4 +19,5 @@ abstract class ConstraintBuilder {
 fun getAvailableConstraintBuilders() =
         listOf(
                 ExactValueConstraintBuilder,
+                VerticalRangeStrictConstraintBuilder,
                 VerticalRangeLooseConstraintBuilder)
