@@ -4,7 +4,7 @@ import it.krzeminski.testutils.plotassert.types.RawVisualisation
 import it.krzeminski.testutils.plotassert.types.RawXAxis
 import it.krzeminski.testutils.plotassert.types.VisualisationRow
 import it.krzeminski.testutils.plotassert.types.constraints.ExactValueConstraint
-import it.krzeminski.testutils.plotassert.types.constraints.VerticalRangeConstraint
+import it.krzeminski.testutils.plotassert.types.constraints.VerticalRangeStrictConstraint
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -28,7 +28,8 @@ class VisualisationToConstraintsConversionTest {
                 expected = listOf(
                         ExactValueConstraint(xValues = listOf(-1.0f), y = 2.0f),
                         ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f),
-                        VerticalRangeConstraint(xValues = listOf(1.0f), minY = 2.5f, maxY = 4.5f)
+                        VerticalRangeStrictConstraint(
+                            xValues = listOf(1.0f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
                 )
         )
     }
@@ -49,7 +50,8 @@ class VisualisationToConstraintsConversionTest {
             expected = listOf(
                 ExactValueConstraint(xValues = listOf(-0.875f, -0.625f), y = 2.0f),
                 ExactValueConstraint(xValues = listOf(-0.375f, -0.125f, 0.125f, 0.375f), y = 3.0f),
-                VerticalRangeConstraint(xValues = listOf(0.625f, 0.875f), minY = 2.5f, maxY = 4.5f)
+                VerticalRangeStrictConstraint(
+                    xValues = listOf(0.625f, 0.875f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
             )
         )
     }
@@ -70,7 +72,8 @@ class VisualisationToConstraintsConversionTest {
             expected = listOf(
                 ExactValueConstraint(xValues = listOf(-6.0f, -4.0f), y = 2.0f),
                 ExactValueConstraint(xValues = listOf(-2.0f, 0.0f, 2.0f), y = 3.0f),
-                VerticalRangeConstraint(xValues = listOf(4.0f, 6.0f), minY = 2.5f, maxY = 4.5f)
+                VerticalRangeStrictConstraint(
+                    xValues = listOf(4.0f, 6.0f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
             )
         )
     }

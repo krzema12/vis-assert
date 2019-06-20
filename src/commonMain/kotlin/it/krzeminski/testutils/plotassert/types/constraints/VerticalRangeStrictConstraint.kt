@@ -5,10 +5,12 @@ import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import it.krzeminski.testutils.plotassert.types.AxisMarker
 import it.krzeminski.testutils.plotassert.types.VisualisationColumn
 
-data class VerticalRangeConstraint(
+data class VerticalRangeStrictConstraint(
     override val xValues: List<Float>,
     private val minY: Float,
-    private val maxY: Float
+    private val maxY: Float,
+    private val innerMinY: Float,
+    private val innerMaxY: Float
 ) : Constraint {
     override fun assertMatches(function: (Float) -> Float) {
         xValues.forEach { x ->
@@ -17,10 +19,27 @@ data class VerticalRangeConstraint(
                 throw FailedConstraintException("For x=$x: $yValue is not between $minY and $maxY!")
             }
         }
+        val anyAboveInnerMaxY = xValues.any { x ->
+            val yValue = function(x)
+            yValue > innerMaxY
+        }
+        val anyBelowInnerMinY = xValues.any { x ->
+            val yValue = function(x)
+            yValue < innerMinY
+        }
+        if (!(anyAboveInnerMaxY && anyBelowInnerMinY)) {
+            val whereValuesMissing = listOfNotNull(
+                if (anyAboveInnerMaxY) null else "above",
+                if (anyBelowInnerMinY) null else "below"
+            ).joinToString(" and ")
+            throw FailedConstraintException(
+                "For a column with X values in range ${xValues.first()} to ${xValues.last()}, " +
+                        "with minY=$minY and maxY=$maxY, values $whereValuesMissing the inner range are missing!")
+        }
     }
 }
 
-object VerticalRangeConstraintBuilder : ConstraintBuilder() {
+object VerticalRangeStrictConstraintBuilder : ConstraintBuilder() {
     override fun columnMatchesThisConstraintType(column: VisualisationColumn): Boolean {
         val onlyLegalCharacters = setOf(' ', 'I').containsAll(column.characters.groupBy { it }.keys)
         val noGapsBetweenLetters =
@@ -38,14 +57,24 @@ object VerticalRangeConstraintBuilder : ConstraintBuilder() {
         yAxisMarkers: List<AxisMarker>
     ): Constraint
     {
+        if (column.characters.count { it == 'I' } == 1) {
+            return VerticalRangeLooseConstraintBuilder.buildConstraintFromColumn(
+                xValues, column.copy(characters = column.characters.replace('I', 'i')), yAxisMarkers)
+        }
+
         val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'I' }
         val indexOfLastCharacter = column.characters.indexOfLast { it == 'I' }
+
         val firstCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfFirstCharacter)
+        val secondCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfFirstCharacter + 1)
+        val secondToLastCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfLastCharacter - 1)
         val lastCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfLastCharacter)
 
-        return VerticalRangeConstraint(
+        return VerticalRangeStrictConstraint(
             xValues,
             minY = lastCharacterValueBounds.lowerBound,
-            maxY = firstCharacterValueBounds.upperBound)
+            maxY = firstCharacterValueBounds.upperBound,
+            innerMinY = secondToLastCharacterValueBounds.lowerBound,
+            innerMaxY = secondCharacterValueBounds.upperBound)
     }
 }
