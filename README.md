@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/krzema12/PlotAssert.svg?branch=master)](https://travis-ci.com/krzema12/PlotAssert) [![codecov](https://codecov.io/gh/krzema12/PlotAssert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/PlotAssert) [ ![Download](https://api.bintray.com/packages/krzema1212/it.krzeminski/PlotAssert/images/download.svg) ](https://bintray.com/krzema1212/it.krzeminski/PlotAssert/_latestVersion)
+[![Build Status](https://travis-ci.com/krzema12/PlotAssert.svg?branch=master)](https://travis-ci.com/krzema12/PlotAssert) [![codecov](https://codecov.io/gh/krzema12/PlotAssert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/PlotAssert)
 
 # ⚠️ Release status
 
