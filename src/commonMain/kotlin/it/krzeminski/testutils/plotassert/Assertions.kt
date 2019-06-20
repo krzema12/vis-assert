@@ -1,5 +1,7 @@
 package it.krzeminski.testutils.plotassert
 
+import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
+
 fun assertFunctionConformsTo(
     functionUnderTest: (Float) -> Float,
     visualisation: PlotConstraintsBuilder.() -> Unit
@@ -17,7 +19,14 @@ fun assertFunctionConformsTo(
 ) {
     val rawVisualisation = readRawVisualisation(visualisation)
     val constraints = rawVisualisation.toConstraints(samplesPerCharacter)
+    val functionUnderTestWithExceptionInterception = { x: Float ->
+        try {
+            functionUnderTest(x)
+        } catch (e: Exception) {
+            throw FailedConstraintException("For x=$x: the function throws an exception!", e)
+        }
+    }
     constraints.map { constraint ->
-        constraint.assertMatches(functionUnderTest)
+        constraint.assertMatches(functionUnderTestWithExceptionInterception)
     }
 }

@@ -3,6 +3,7 @@ package it.krzeminski.testutils.plotassert
 import it.krzeminski.testutils.plotassert.exceptions.FailedConstraintException
 import kotlin.math.sin
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
@@ -104,6 +105,51 @@ class AssertionsTest {
             )
         }.let { e ->
             assertTrue(e.message in setOf("For x=1.25: 1.0 is not equal to 0.0!", "For x=1.25: 1 is not equal to 0!"))
+        }
+    }
+
+    @Test
+    fun assertFunctionConformsToWhenFunctionThrowsException() {
+        val exceptionThrownByFunction = IllegalArgumentException("This function throws an exception for every X")
+        assertFailsWith<FailedConstraintException> {
+            assertFunctionConformsTo(
+                functionUnderTest = { throw exceptionThrownByFunction },
+                visualisation = {
+                    row(1.0f,   "XXXXX")
+                    row(0.0f,   "     ")
+                    xAxis {
+                        markers("|   |")
+                        values(1.0f, 2.0f)
+                    }
+                }
+            )
+        }.let { e ->
+            assertTrue(e.message in setOf(
+                "For x=1.0: the function throws an exception!",
+                "For x=1: the function throws an exception!"))
+            assertEquals(exceptionThrownByFunction, e.cause)
+        }
+    }
+
+    @Suppress("DIVISION_BY_ZERO") // Justification: it's induced in this test on purpose.
+    @Test
+    fun assertFunctionConformsToWhenFunctionReturnsNotANumber() {
+        assertFailsWith<FailedConstraintException> {
+            assertFunctionConformsTo(
+                functionUnderTest = { 1.0f / 0.0f },
+                visualisation = {
+                    row(1.0f,   "XXXXX")
+                    row(0.0f,   "     ")
+                    xAxis {
+                        markers("|   |")
+                        values(1.0f, 2.0f)
+                    }
+                }
+            )
+        }.let { e ->
+            assertTrue(e.message in setOf(
+                "For x=1.0: Infinity is not equal to 1.0!",
+                "For x=1: Infinity is not equal to 1!"))
         }
     }
 }
