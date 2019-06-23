@@ -13,10 +13,10 @@ afterEvaluate {
             licenses = ['MIT']
             vcsUrl = 'https://github.com/krzema12/PlotAssert.git'
             version {
-                name = '1.0.0'
-                desc = 'First release'
+                name = '0.1.0-beta'
+                desc = 'First beta release'
                 released = new Date()
-                vcsTag = '1.0.0'
+                vcsTag = '0.1.0-beta'
             }
         }
     }
