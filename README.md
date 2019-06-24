@@ -7,7 +7,6 @@ This library is in a "proof of concept" stage:
 * it's hard to write the tests, it requires creating the visualization column by column
 * failed assertions produce messages that are hard to relate to the function
 * it contains several known bugs
-* it's not yet available in any public repository
 
 Feel free to experiment with it, but avoid using in production.
 
@@ -20,6 +19,22 @@ to make sure that the jump movement is fluent and fast enough.
 
 Under the hood, each such ASCII visualisation is translated into a collection of *constraints*, where each constraint
 looks at a single X value of the function and performs a certain check on its Y value at this point.
+
+# Installation
+
+In your `build.gradle`:
+
+```
+repositories {
+    maven {
+        url "https://dl.bintray.com/krzema1212/it.krzeminski"
+    }
+}
+
+dependencies {
+    testCompile "it.krzeminski:PlotAssert:0.1.0-beta"
+}
+```
 
 # Examples
 
