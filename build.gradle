@@ -78,9 +78,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: jvmTest) {
         html.enabled true
     }
     afterEvaluate {
-        sourceDirectories = files("$projectDir/src/commonMain/kotlin")
-        classDirectories = files("$buildDir/classes/kotlin/jvm/main")
-        executionData = files("$buildDir/jacoco/jvmTest.exec")
+        getSourceDirectories().setFrom(files("$projectDir/src/commonMain/kotlin"))
+        getClassDirectories().setFrom(files("$buildDir/classes/kotlin/jvm/main"))
+        getExecutionData().setFrom(files("$buildDir/jacoco/jvmTest.exec"))
     }
 }
 
