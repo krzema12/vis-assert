@@ -60,7 +60,12 @@ class VerticalRangeLooseConstraintTest {
                     }
                 }
         }.let { e ->
-            assertTrue(e.message in setOf("For x=2.0: 123.0 is not between 1.0 and 2.0!", "For x=2.0: 123 is not between 1 and 2!"))
+            assertTrue(
+                e.message in setOf(
+                    "For x=2.0: 123.0 is not between 1.0 and 2.0!",
+                    "For x=2: 123 is not between 1 and 2!",
+                )
+            )
         }
     }
 

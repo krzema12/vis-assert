@@ -48,7 +48,12 @@ class ExactValueConstraintTest {
                     }
                 }
         }.let { e ->
-            assertTrue(e.message in setOf("For x=2.0: 123.0 is not equal to 1.0!", "For x=2.0: 123 is not equal to 1!"))
+            assertTrue(
+                e.message in setOf(
+                    "For x=2.0: 123.0 is not equal to 1.0!",
+                    "For x=2: 123 is not equal to 1!",
+                )
+            )
         }
     }
 
