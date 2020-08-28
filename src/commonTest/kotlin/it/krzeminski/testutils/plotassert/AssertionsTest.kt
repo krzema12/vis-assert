@@ -13,19 +13,19 @@ class AssertionsTest {
     @Test
     fun assertFunctionConformsToWhenAssertionsAreFulfilled() {
         assertFunctionConformsTo(
-                functionUnderTest = { 1.0f },
-                visualisation = {
-                    row(1.0f,   "XXXXX")
-                    row(0.0f,   "     ")
-                    xAxis {
-                        markers("|   |")
-                        values(1.0f, 2.0f)
-                    }
+            functionUnderTest = { 1.0f },
+            visualisation = {
+                row(1.0f,   "XXXXX")
+                row(0.0f,   "     ")
+                xAxis {
+                    markers("|   |")
+                    values(1.0f, 2.0f)
                 }
+            }
         )
     }
 
-    private val functionWithHighFrequency = { x: Float -> (sin(100*x) * sin(x) * x * 0.3).toFloat() }
+    private val functionWithHighFrequency = { x: Float -> (sin(100 * x) * sin(x) * x * 0.3).toFloat() }
 
     /**
      * The below test shows that for a high-frequency function, default 1-per-character sampling is too low to catch
@@ -93,15 +93,15 @@ class AssertionsTest {
     fun assertFunctionConformsToWhenOneAssertionFails() {
         assertFailsWith<FailedConstraintException> {
             assertFunctionConformsTo(
-                    functionUnderTest = { 1.0f },
-                    visualisation = {
-                        row(1.0f,   "X XXX")
-                        row(0.0f,   " X   ")
-                        xAxis {
-                            markers("|   |")
-                            values(1.0f, 2.0f)
-                        }
+                functionUnderTest = { 1.0f },
+                visualisation = {
+                    row(1.0f,   "X XXX")
+                    row(0.0f,   " X   ")
+                    xAxis {
+                        markers("|   |")
+                        values(1.0f, 2.0f)
                     }
+                }
             )
         }.let { e ->
             assertTrue(e.message in setOf("For x=1.25: 1.0 is not equal to 0.0!", "For x=1.25: 1 is not equal to 0!"))
@@ -124,9 +124,12 @@ class AssertionsTest {
                 }
             )
         }.let { e ->
-            assertTrue(e.message in setOf(
-                "For x=1.0: the function throws an exception!",
-                "For x=1: the function throws an exception!"))
+            assertTrue(
+                e.message in setOf(
+                    "For x=1.0: the function throws an exception!",
+                    "For x=1: the function throws an exception!"
+                )
+            )
             assertEquals(exceptionThrownByFunction, e.cause)
         }
     }
@@ -147,9 +150,12 @@ class AssertionsTest {
                 }
             )
         }.let { e ->
-            assertTrue(e.message in setOf(
-                "For x=1.0: Infinity is not equal to 1.0!",
-                "For x=1: Infinity is not equal to 1!"))
+            assertTrue(
+                e.message in setOf(
+                    "For x=1.0: Infinity is not equal to 1.0!",
+                    "For x=1: Infinity is not equal to 1!"
+                )
+            )
         }
     }
 }

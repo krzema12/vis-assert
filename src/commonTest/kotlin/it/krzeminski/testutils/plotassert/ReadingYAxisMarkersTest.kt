@@ -13,25 +13,26 @@ class ReadingYAxisMarkersTest {
     @Test
     fun yAxisCommonCase() {
         assertEquals(
-                readYAxisMarkers(
-                        RawVisualisation(
-                                visualisationRows = listOf(
-                                        VisualisationRow("    X   ", 1.0f),
-                                        VisualisationRow("   I  I "),
-                                        VisualisationRow(" III  II", 0.0f),
-                                        VisualisationRow("   II I "),
-                                        VisualisationRow("    X   ", -1.0f)
-                                ),
-                                xAxis = RawXAxis(
-                                        markers = "|      |",
-                                        values = listOf(0.0f, 1.0f))
-                        )
-                ),
-                listOf(
-                        AxisMarker(value = 1.0f, characterIndex = 0),
-                        AxisMarker(value = 0.0f, characterIndex = 2),
-                        AxisMarker(value = -1.0f, characterIndex = 4)
+            readYAxisMarkers(
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 1.0f),
+                        VisualisationRow("   I  I "),
+                        VisualisationRow(" III  II", 0.0f),
+                        VisualisationRow("   II I "),
+                        VisualisationRow("    X   ", -1.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f)
+                    )
                 )
+            ),
+            listOf(
+                AxisMarker(value = 1.0f, characterIndex = 0),
+                AxisMarker(value = 0.0f, characterIndex = 2),
+                AxisMarker(value = -1.0f, characterIndex = 4)
+            )
         )
     }
 
@@ -39,20 +40,24 @@ class ReadingYAxisMarkersTest {
     fun yAxisRepeatedValue() {
         assertFailsWith<IllegalArgumentException> {
             readYAxisMarkers(
-                    RawVisualisation(
-                            visualisationRows = listOf(
-                                    VisualisationRow("    X   ", 1.0f),
-                                    VisualisationRow(" III  II", 1.0f)
-                            ),
-                            xAxis = RawXAxis(
-                                    markers = "|      |",
-                                    values = listOf(0.0f, 1.0f))
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 1.0f),
+                        VisualisationRow(" III  II", 1.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f)
                     )
+                )
             )
         }.let { e ->
-            assertTrue(e.message in setOf(
+            assertTrue(
+                e.message in setOf(
                     "Given Y axis markers should have descending values (found: 1.0, 1.0)!",
-                    "Given Y axis markers should have descending values (found: 1, 1)!"))
+                    "Given Y axis markers should have descending values (found: 1, 1)!"
+                )
+            )
         }
     }
 
@@ -60,21 +65,25 @@ class ReadingYAxisMarkersTest {
     fun yAxisIncorrectOrder() {
         assertFailsWith<IllegalArgumentException> {
             readYAxisMarkers(
-                    RawVisualisation(
-                            visualisationRows = listOf(
-                                    VisualisationRow("    X   ", 4.0f),
-                                    VisualisationRow(" III  II", 9.0f),
-                                    VisualisationRow(" III  II", 2.0f)
-                            ),
-                            xAxis = RawXAxis(
-                                    markers = "|      |",
-                                    values = listOf(0.0f, 1.0f))
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   ", 4.0f),
+                        VisualisationRow(" III  II", 9.0f),
+                        VisualisationRow(" III  II", 2.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f)
                     )
+                )
             )
         }.let { e ->
-            assertTrue(e.message in setOf(
+            assertTrue(
+                e.message in setOf(
                     "Given Y axis markers should have descending values (found: 4.0, 9.0)!",
-                    "Given Y axis markers should have descending values (found: 4, 9)!"))
+                    "Given Y axis markers should have descending values (found: 4, 9)!"
+                )
+            )
         }
     }
 
@@ -82,15 +91,16 @@ class ReadingYAxisMarkersTest {
     fun yAxisNoMarkers() {
         assertFailsWith<IllegalArgumentException> {
             readYAxisMarkers(
-                    RawVisualisation(
-                            visualisationRows = listOf(
-                                    VisualisationRow("    X   "),
-                                    VisualisationRow(" III  II")
-                            ),
-                            xAxis = RawXAxis(
-                                    markers = "|      |",
-                                    values = listOf(0.0f, 1.0f))
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   "),
+                        VisualisationRow(" III  II")
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f)
                     )
+                )
             )
         }.let { e ->
             assertEquals("0 Y axis marker(s) found, and there should be at least two!", e.message)
@@ -101,15 +111,16 @@ class ReadingYAxisMarkersTest {
     fun yAxisOneMarker() {
         assertFailsWith<IllegalArgumentException> {
             readYAxisMarkers(
-                    RawVisualisation(
-                            visualisationRows = listOf(
-                                    VisualisationRow("    X   "),
-                                    VisualisationRow(" III  II", 3.0f)
-                            ),
-                            xAxis = RawXAxis(
-                                    markers = "|      |",
-                                    values = listOf(0.0f, 1.0f))
+                RawVisualisation(
+                    visualisationRows = listOf(
+                        VisualisationRow("    X   "),
+                        VisualisationRow(" III  II", 3.0f)
+                    ),
+                    xAxis = RawXAxis(
+                        markers = "|      |",
+                        values = listOf(0.0f, 1.0f)
                     )
+                )
             )
         }.let { e ->
             assertEquals("1 Y axis marker(s) found, and there should be at least two!", e.message)
@@ -128,7 +139,8 @@ class ReadingYAxisMarkersTest {
                     ),
                     xAxis = RawXAxis(
                         markers = "|      |",
-                        values = listOf(0.0f, 1.0f))
+                        values = listOf(0.0f, 1.0f)
+                    )
                 )
             )
         }.let { e ->
@@ -148,7 +160,8 @@ class ReadingYAxisMarkersTest {
                     ),
                     xAxis = RawXAxis(
                         markers = "|      |",
-                        values = listOf(0.0f, 1.0f))
+                        values = listOf(0.0f, 1.0f)
+                    )
                 )
             )
         }.let { e ->

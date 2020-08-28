@@ -34,7 +34,8 @@ data class VerticalRangeStrictConstraint(
             ).joinToString(" and ")
             throw FailedConstraintException(
                 "For a column with X values in range ${xValues.first()} to ${xValues.last()}, " +
-                        "with minY=$minY and maxY=$maxY, values $whereValuesMissing the inner range are missing!")
+                    "with minY=$minY and maxY=$maxY, values $whereValuesMissing the inner range are missing!"
+            )
         }
     }
 }
@@ -44,9 +45,9 @@ object VerticalRangeStrictConstraintBuilder : ConstraintBuilder() {
         val onlyLegalCharacters = setOf(' ', 'I').containsAll(column.characters.groupBy { it }.keys)
         val noGapsBetweenLetters =
             column.characters
-                    .mapIndexedNotNull { index, character -> if (character == 'I') index else null }
-                    .zipWithNext { a, b -> b - a }
-                    .all { difference -> difference == 1 }
+                .mapIndexedNotNull { index, character -> if (character == 'I') index else null }
+                .zipWithNext { a, b -> b - a }
+                .all { difference -> difference == 1 }
 
         return onlyLegalCharacters && noGapsBetweenLetters
     }
@@ -55,11 +56,13 @@ object VerticalRangeStrictConstraintBuilder : ConstraintBuilder() {
         xValues: List<Float>,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
-    ): Constraint
-    {
+    ): Constraint {
         if (column.characters.count { it == 'I' } == 1) {
             return VerticalRangeLooseConstraintBuilder.buildConstraintFromColumn(
-                xValues, column.copy(characters = column.characters.replace('I', 'i')), yAxisMarkers)
+                xValues,
+                column.copy(characters = column.characters.replace('I', 'i')),
+                yAxisMarkers
+            )
         }
 
         val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'I' }
@@ -75,6 +78,7 @@ object VerticalRangeStrictConstraintBuilder : ConstraintBuilder() {
             minY = lastCharacterValueBounds.lowerBound,
             maxY = firstCharacterValueBounds.upperBound,
             innerMinY = secondToLastCharacterValueBounds.lowerBound,
-            innerMaxY = secondCharacterValueBounds.upperBound)
+            innerMaxY = secondCharacterValueBounds.upperBound
+        )
     }
 }

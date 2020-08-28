@@ -9,7 +9,8 @@ fun assertFunctionConformsTo(
     assertFunctionConformsTo(
         functionUnderTest = functionUnderTest,
         samplesPerCharacter = 1,
-        visualisation = visualisation)
+        visualisation = visualisation
+    )
 }
 
 fun assertFunctionConformsTo(

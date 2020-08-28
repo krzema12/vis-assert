@@ -12,13 +12,14 @@ fun readYAxisMarkers(rawVisualisation: RawVisualisation): List<AxisMarker> {
     validate(rawVisualisation)
 
     return rawVisualisation.visualisationRows
-            .mapIndexedNotNull { index, visualisationRow ->
-                visualisationRow.yAxisMarkerValue?.let {
-                    AxisMarker(
-                            value = it,
-                            characterIndex = index)
-                }
+        .mapIndexedNotNull { index, visualisationRow ->
+            visualisationRow.yAxisMarkerValue?.let {
+                AxisMarker(
+                    value = it,
+                    characterIndex = index
+                )
             }
+        }
 }
 
 private fun validate(rawVisualisation: RawVisualisation) {
@@ -30,7 +31,8 @@ private fun validate(rawVisualisation: RawVisualisation) {
 private fun validateIfAtLeastTwoMarkers(visualisationRows: List<VisualisationRow>) {
     val numberOfMarkers = visualisationRows.mapNotNull { it.yAxisMarkerValue }.count()
     require(numberOfMarkers >= 2) {
-        "$numberOfMarkers Y axis marker(s) found, and there should be at least two!" }
+        "$numberOfMarkers Y axis marker(s) found, and there should be at least two!"
+    }
 }
 
 private fun validateIfFirstAndLastRowHaveMarkers(visualisationRows: List<VisualisationRow>) {
@@ -41,12 +43,12 @@ private fun validateIfFirstAndLastRowHaveMarkers(visualisationRows: List<Visuali
 
 private fun validateIfMarkerValuesIncreaseMonotonically(visualisationRows: List<VisualisationRow>) {
     visualisationRows
-            .mapNotNull { it.yAxisMarkerValue }
-            .zipWithNext { a, b -> Pair(a, b) }
-            .forEach { pair ->
-                require(pair.first - pair.second > 0.0f) {
-                    "Given Y axis markers should have descending values " +
-                            "(found: ${pair.first}, ${pair.second})!"
-                }
+        .mapNotNull { it.yAxisMarkerValue }
+        .zipWithNext { a, b -> Pair(a, b) }
+        .forEach { pair ->
+            require(pair.first - pair.second > 0.0f) {
+                "Given Y axis markers should have descending values " +
+                    "(found: ${pair.first}, ${pair.second})!"
             }
+        }
 }

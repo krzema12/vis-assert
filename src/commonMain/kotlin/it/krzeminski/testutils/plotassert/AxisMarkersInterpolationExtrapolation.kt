@@ -28,9 +28,10 @@ fun computeValueBounds(markers: List<AxisMarker>, characterIndex: Int): ValueBou
     val valueForShiftToLowerIndex = valueAroundIndex(-0.5f)
     val valueForShiftToHigherIndex = valueAroundIndex(0.5f)
     return ValueBounds(
-            lowerBound = min(valueForShiftToLowerIndex, valueForShiftToHigherIndex),
-            center = valueAroundIndex(0.0f),
-            upperBound = max(valueForShiftToLowerIndex, valueForShiftToHigherIndex))
+        lowerBound = min(valueForShiftToLowerIndex, valueForShiftToHigherIndex),
+        center = valueAroundIndex(0.0f),
+        upperBound = max(valueForShiftToLowerIndex, valueForShiftToHigherIndex)
+    )
 }
 
 private fun validate(markers: List<AxisMarker>, characterIndex: Int) {
@@ -41,13 +42,13 @@ private fun validate(markers: List<AxisMarker>, characterIndex: Int) {
 
 private fun validateIfMarkerCharacterIndicesIncreaseMonotonically(axisMarkers: List<AxisMarker>) {
     axisMarkers
-            .map { it -> it.characterIndex }
-            .zipWithNext { a, b -> Pair(a, b) }
-            .forEach { pair ->
-                require(pair.second - pair.first > 0.0f) {
-                    "Given axis markers should have ascending indices (found: ${pair.first}, ${pair.second})!"
-                }
+        .map { it -> it.characterIndex }
+        .zipWithNext { a, b -> Pair(a, b) }
+        .forEach { pair ->
+            require(pair.second - pair.first > 0.0f) {
+                "Given axis markers should have ascending indices (found: ${pair.first}, ${pair.second})!"
             }
+        }
 }
 
 /**
@@ -62,11 +63,11 @@ private fun interpolate(markers: List<AxisMarker>, continuousCharacterIndex: Flo
     }
 
     val pairOfEnclosingMarkers = markers
-            .zipWithNext()
-            .find { pairOfMarkers ->
-                continuousCharacterIndex in
-                        pairOfMarkers.first.characterIndex.toFloat()..pairOfMarkers.second.characterIndex.toFloat()
-            } ?: return null
+        .zipWithNext()
+        .find { pairOfMarkers ->
+            continuousCharacterIndex in
+                pairOfMarkers.first.characterIndex.toFloat()..pairOfMarkers.second.characterIndex.toFloat()
+        } ?: return null
 
     val (first, second) = pairOfEnclosingMarkers
     return lerpBetweenAxisMarkers(first, second, continuousCharacterIndex)
@@ -92,6 +93,6 @@ private fun extrapolate(markers: List<AxisMarker>, continuousCharacterIndex: Flo
  */
 private fun lerpBetweenAxisMarkers(first: AxisMarker, second: AxisMarker, characterIndex: Float): Float {
     val normalizedDistance = (characterIndex - first.characterIndex.toFloat()) /
-            (second.characterIndex - first.characterIndex).toFloat()
+        (second.characterIndex - first.characterIndex).toFloat()
     return first.value + (second.value - first.value) * normalizedDistance
 }

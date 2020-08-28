@@ -25,9 +25,9 @@ object VerticalRangeLooseConstraintBuilder : ConstraintBuilder() {
         val onlyLegalCharacters = setOf(' ', 'i').containsAll(column.characters.groupBy { it }.keys)
         val noGapsBetweenLetters =
             column.characters
-                    .mapIndexedNotNull { index, character -> if (character == 'i') index else null }
-                    .zipWithNext { a, b -> b - a }
-                    .all { difference -> difference == 1 }
+                .mapIndexedNotNull { index, character -> if (character == 'i') index else null }
+                .zipWithNext { a, b -> b - a }
+                .all { difference -> difference == 1 }
 
         return onlyLegalCharacters && noGapsBetweenLetters
     }
@@ -36,8 +36,7 @@ object VerticalRangeLooseConstraintBuilder : ConstraintBuilder() {
         xValues: List<Float>,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
-    ): Constraint
-    {
+    ): Constraint {
         val indexOfFirstCharacter = column.characters.indexOfFirst { it == 'i' }
         val indexOfLastCharacter = column.characters.indexOfLast { it == 'i' }
         val firstCharacterValueBounds = computeValueBounds(yAxisMarkers, indexOfFirstCharacter)
@@ -46,6 +45,7 @@ object VerticalRangeLooseConstraintBuilder : ConstraintBuilder() {
         return VerticalRangeLooseConstraint(
             xValues,
             minY = lastCharacterValueBounds.lowerBound,
-            maxY = firstCharacterValueBounds.upperBound)
+            maxY = firstCharacterValueBounds.upperBound
+        )
     }
 }

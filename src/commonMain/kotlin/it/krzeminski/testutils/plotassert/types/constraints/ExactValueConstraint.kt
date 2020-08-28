@@ -25,16 +25,15 @@ data class ExactValueConstraint(
 
 object ExactValueConstraintBuilder : ConstraintBuilder() {
     override fun columnMatchesThisConstraintType(column: VisualisationColumn): Boolean =
-            with(column.characters.groupBy { it }) {
-                return keys == setOf(' ', 'X') && this.getValue('X').size == 1
-            }
+        with(column.characters.groupBy { it }) {
+            return keys == setOf(' ', 'X') && this.getValue('X').size == 1
+        }
 
     override fun buildConstraintFromColumn(
         xValues: List<Float>,
         column: VisualisationColumn,
         yAxisMarkers: List<AxisMarker>
-    ): Constraint
-    {
+    ): Constraint {
         val indexOfXCharacter = column.characters.indexOf('X')
         val valueBounds = computeValueBounds(yAxisMarkers, indexOfXCharacter)
 

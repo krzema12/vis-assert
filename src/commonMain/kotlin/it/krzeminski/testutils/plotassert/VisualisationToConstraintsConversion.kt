@@ -20,8 +20,8 @@ fun RawVisualisation.toConstraints(samplesPerCharacter: Int = 1): List<Constrain
 private fun validateAllStringsHaveTheSameLength(rawVisualisation: RawVisualisation) {
     val firstRowLength = rawVisualisation.visualisationRows.first().characters.length
     val allRowsHaveTheSameLength = rawVisualisation.visualisationRows
-            .map { it.characters.length }
-            .all { it == firstRowLength }
+        .map { it.characters.length }
+        .all { it == firstRowLength }
     val xAxisMarkersStringHasTheSameLengthAsRows = rawVisualisation.xAxis.markers.length == firstRowLength
 
     require(allRowsHaveTheSameLength && xAxisMarkersStringHasTheSameLengthAsRows) {
@@ -35,8 +35,7 @@ private fun buildConstraint(
     xAxisMarkers: List<AxisMarker>,
     xIndex: Int,
     samplesPerCharacter: Int
-): Constraint?
-{
+): Constraint? {
     val xValueBounds = computeValueBounds(xAxisMarkers, xIndex)
     val evenlyDistributedXPoints = xValueBounds.evenlyDistributedPointsBetweenBounds(samplesPerCharacter)
 
@@ -57,10 +56,12 @@ private fun ValueBounds.evenlyDistributedPointsBetweenBounds(numberOfPoints: Int
 }
 
 private val RawVisualisation.columns: List<VisualisationColumn>
-        get() {
-            return visualisationRows.first().characters.mapIndexed { index, _ ->
-                VisualisationColumn(visualisationRows
-                        .map { it.characters[index] }
-                        .joinToString(separator = ""))
-            }
+    get() {
+        return visualisationRows.first().characters.mapIndexed { index, _ ->
+            VisualisationColumn(
+                visualisationRows
+                    .map { it.characters[index] }
+                    .joinToString(separator = "")
+            )
         }
+    }

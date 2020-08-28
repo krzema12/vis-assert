@@ -23,7 +23,7 @@ class VisualisationColumnToConstraintMappingTest {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = true
 
             override fun buildConstraintFromColumn(xValues: List<Float>, column: VisualisationColumn, yAxisMarkers: List<AxisMarker>) =
-                    constraintToReturn
+                constraintToReturn
         }
         val mockConstraintBuilder2 = object : ConstraintBuilder() {
             override fun columnMatchesThisConstraintType(column: VisualisationColumn) = false
@@ -35,22 +35,25 @@ class VisualisationColumnToConstraintMappingTest {
         val mockGetAvailableConstraintBuilders = { listOf(mockConstraintBuilder1, mockConstraintBuilder2) }
 
         assertEquals(
-                actual = mapVisualisationColumnToConstraint(
-                        listOf(4.0f),
-                        VisualisationColumn("MOCK VISUALISATION COLUMN"),
-                        listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
-                        mockGetAvailableConstraintBuilders),
-                expected = constraintToReturn)
+            actual = mapVisualisationColumnToConstraint(
+                listOf(4.0f),
+                VisualisationColumn("MOCK VISUALISATION COLUMN"),
+                listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
+                mockGetAvailableConstraintBuilders
+            ),
+            expected = constraintToReturn
+        )
     }
 
     @Test
     fun noConstraintDesired() {
         assertEquals(
-                actual = mapVisualisationColumnToConstraint(
-                        listOf(4.0f),
-                        VisualisationColumn("     "),
-                        listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))),
-                expected = null
+            actual = mapVisualisationColumnToConstraint(
+                listOf(4.0f),
+                VisualisationColumn("     "),
+                listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4))
+            ),
+            expected = null
         )
     }
 
@@ -74,10 +77,11 @@ class VisualisationColumnToConstraintMappingTest {
 
         assertFailsWith<IllegalArgumentException> {
             mapVisualisationColumnToConstraint(
-                    listOf(4.0f),
-                    VisualisationColumn("MOCK VISUALISATION COLUMN"),
-                    listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
-                    mockGetAvailableConstraintBuilders)
+                listOf(4.0f),
+                VisualisationColumn("MOCK VISUALISATION COLUMN"),
+                listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
+                mockGetAvailableConstraintBuilders
+            )
         }.let { e ->
             assertEquals("No constraints match this visualisation column: MOCK VISUALISATION COLUMN", e.message)
         }
@@ -103,10 +107,11 @@ class VisualisationColumnToConstraintMappingTest {
 
         assertFailsWith<IllegalArgumentException> {
             mapVisualisationColumnToConstraint(
-                    listOf(4.0f),
-                    VisualisationColumn("MOCK VISUALISATION COLUMN"),
-                    listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
-                    mockGetAvailableConstraintBuilders)
+                listOf(4.0f),
+                VisualisationColumn("MOCK VISUALISATION COLUMN"),
+                listOf(AxisMarker(5.0f, 0), AxisMarker(1.0f, 4)),
+                mockGetAvailableConstraintBuilders
+            )
         }.let { e ->
             assertNotNull(e.message)
             assertTrue(e.message!!.startsWith("Ambiguous constraint; more than 1 constraint type matches:"))

@@ -14,9 +14,8 @@ fun mapVisualisationColumnToConstraint(
     column: VisualisationColumn,
     yAxisMarkers: List<AxisMarker>,
     getAvailableConstraintBuilders:
-    () -> List<ConstraintBuilder> = ::getAvailableConstraintBuilders
-): Constraint?
-{
+        () -> List<ConstraintBuilder> = ::getAvailableConstraintBuilders
+): Constraint? {
     if (onlySpaces(column)) {
         return null
     }
@@ -35,4 +34,4 @@ fun mapVisualisationColumnToConstraint(
 }
 
 private fun onlySpaces(column: VisualisationColumn) =
-        column.characters.groupBy { it }.keys == setOf(' ')
+    column.characters.groupBy { it }.keys == setOf(' ')

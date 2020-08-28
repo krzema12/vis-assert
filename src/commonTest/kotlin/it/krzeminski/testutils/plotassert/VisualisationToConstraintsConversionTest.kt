@@ -15,22 +15,29 @@ class VisualisationToConstraintsConversionTest {
     @Test
     fun simpleLinearFunction() {
         assertEquals(
-                actual = RawVisualisation(
-                        visualisationRows = listOf(
-                                VisualisationRow("  I", 4.0f),
-                                VisualisationRow(" XI"),
-                                VisualisationRow("X  ", 2.0f)
-                        ),
-                        xAxis = RawXAxis(
-                                markers =        "| |",
-                                values = listOf(-1.0f, 1.0f)))
-                        .toConstraints(),
-                expected = listOf(
-                        ExactValueConstraint(xValues = listOf(-1.0f), y = 2.0f),
-                        ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f),
-                        VerticalRangeStrictConstraint(
-                            xValues = listOf(1.0f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
+            actual = RawVisualisation(
+                visualisationRows = listOf(
+                    VisualisationRow("  I", 4.0f),
+                    VisualisationRow(" XI"),
+                    VisualisationRow("X  ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers =        "| |",
+                    values = listOf(-1.0f, 1.0f)
                 )
+            )
+                .toConstraints(),
+            expected = listOf(
+                ExactValueConstraint(xValues = listOf(-1.0f), y = 2.0f),
+                ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f),
+                VerticalRangeStrictConstraint(
+                    xValues = listOf(1.0f),
+                    minY = 2.5f,
+                    maxY = 4.5f,
+                    innerMinY = 3.5f,
+                    innerMaxY = 3.5f
+                )
+            )
         )
     }
 
@@ -45,13 +52,20 @@ class VisualisationToConstraintsConversionTest {
                 ),
                 xAxis = RawXAxis(
                     markers =        "| |",
-                    values = listOf(-1.0f, 1.0f)))
+                    values = listOf(-1.0f, 1.0f)
+                )
+            )
                 .toConstraints(samplesPerCharacter = 4),
             expected = listOf(
                 ExactValueConstraint(xValues = listOf(-0.875f, -0.625f), y = 2.0f),
                 ExactValueConstraint(xValues = listOf(-0.375f, -0.125f, 0.125f, 0.375f), y = 3.0f),
                 VerticalRangeStrictConstraint(
-                    xValues = listOf(0.625f, 0.875f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
+                    xValues = listOf(0.625f, 0.875f),
+                    minY = 2.5f,
+                    maxY = 4.5f,
+                    innerMinY = 3.5f,
+                    innerMaxY = 3.5f
+                )
             )
         )
     }
@@ -67,13 +81,20 @@ class VisualisationToConstraintsConversionTest {
                 ),
                 xAxis = RawXAxis(
                     markers =        "| |",
-                    values = listOf(-6.0f, 6.0f)))
+                    values = listOf(-6.0f, 6.0f)
+                )
+            )
                 .toConstraints(samplesPerCharacter = 3),
             expected = listOf(
                 ExactValueConstraint(xValues = listOf(-6.0f, -4.0f), y = 2.0f),
                 ExactValueConstraint(xValues = listOf(-2.0f, 0.0f, 2.0f), y = 3.0f),
                 VerticalRangeStrictConstraint(
-                    xValues = listOf(4.0f, 6.0f), minY = 2.5f, maxY = 4.5f, innerMinY = 3.5f, innerMaxY = 3.5f)
+                    xValues = listOf(4.0f, 6.0f),
+                    minY = 2.5f,
+                    maxY = 4.5f,
+                    innerMinY = 3.5f,
+                    innerMaxY = 3.5f
+                )
             )
         )
     }
@@ -81,19 +102,21 @@ class VisualisationToConstraintsConversionTest {
     @Test
     fun someColumnsMissingConstraints() {
         assertEquals(
-                actual = RawVisualisation(
-                        visualisationRows = listOf(
-                                VisualisationRow("   ", 4.0f),
-                                VisualisationRow(" X "),
-                                VisualisationRow("   ", 2.0f)
-                        ),
-                        xAxis = RawXAxis(
-                                markers =        "| |",
-                                values = listOf(-1.0f, 1.0f)))
-                        .toConstraints(),
-                expected = listOf(
-                        ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f)
+            actual = RawVisualisation(
+                visualisationRows = listOf(
+                    VisualisationRow("   ", 4.0f),
+                    VisualisationRow(" X "),
+                    VisualisationRow("   ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers =        "| |",
+                    values = listOf(-1.0f, 1.0f)
                 )
+            )
+                .toConstraints(),
+            expected = listOf(
+                ExactValueConstraint(xValues = listOf(0.0f), y = 3.0f)
+            )
         )
     }
 
@@ -101,15 +124,17 @@ class VisualisationToConstraintsConversionTest {
     fun rowsHaveDifferentNumberOfCharacters() {
         assertFailsWith<IllegalArgumentException> {
             RawVisualisation(
-                    visualisationRows = listOf(
-                            VisualisationRow(" ", 4.0f),
-                            VisualisationRow(" X"),
-                            VisualisationRow("X  ", 2.0f)
-                    ),
-                    xAxis = RawXAxis(
-                            markers = "| |",
-                            values = listOf(-1.0f, 1.0f)))
-                    .toConstraints()
+                visualisationRows = listOf(
+                    VisualisationRow(" ", 4.0f),
+                    VisualisationRow(" X"),
+                    VisualisationRow("X  ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers = "| |",
+                    values = listOf(-1.0f, 1.0f)
+                )
+            )
+                .toConstraints()
         }.let { e ->
             assertEquals("Visualisation rows and the X axis markers string must have the same length!", e.message)
         }
@@ -119,15 +144,17 @@ class VisualisationToConstraintsConversionTest {
     fun xAxisMarkersStringHasDifferentNumberOfCharacters() {
         assertFailsWith<IllegalArgumentException> {
             RawVisualisation(
-                    visualisationRows = listOf(
-                            VisualisationRow("  X", 4.0f),
-                            VisualisationRow(" X "),
-                            VisualisationRow("X  ", 2.0f)
-                    ),
-                    xAxis = RawXAxis(
-                            markers =        "|    |",
-                            values = listOf(-1.0f, 1.0f)))
-                    .toConstraints()
+                visualisationRows = listOf(
+                    VisualisationRow("  X", 4.0f),
+                    VisualisationRow(" X "),
+                    VisualisationRow("X  ", 2.0f)
+                ),
+                xAxis = RawXAxis(
+                    markers =        "|    |",
+                    values = listOf(-1.0f, 1.0f)
+                )
+            )
+                .toConstraints()
         }.let { e ->
             assertEquals("Visualisation rows and the X axis markers string must have the same length!", e.message)
         }

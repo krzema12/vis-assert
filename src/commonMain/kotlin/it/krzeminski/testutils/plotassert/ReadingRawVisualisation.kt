@@ -21,10 +21,10 @@ class PlotConstraintsBuilder(
     private var rawXAxis: RawXAxis? = null
 ) {
     fun row(visualisationRowString: String) =
-            visualisationRows.add(VisualisationRow(visualisationRowString))
+        visualisationRows.add(VisualisationRow(visualisationRowString))
 
     fun row(yMarkedValue: Float, visualisationRowString: String) =
-            visualisationRows.add(VisualisationRow(visualisationRowString, yMarkedValue))
+        visualisationRows.add(VisualisationRow(visualisationRowString, yMarkedValue))
 
     fun build(): RawVisualisation {
         val rawXAxisFinal = rawXAxis
