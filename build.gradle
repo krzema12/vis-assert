@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
 }
 group 'it.krzeminski'
-version '0.1.0-beta'
+version '0.2.0-beta'
 
 apply plugin: 'maven-publish'
 apply from: "$rootDir/ktlint.gradle"
