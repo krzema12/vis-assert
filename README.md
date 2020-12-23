@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    testCompile "it.krzeminski:PlotAssert:0.1.0-beta"
+    testCompile "it.krzeminski:PlotAssert:0.2.0-beta"
 }
 ```
 
