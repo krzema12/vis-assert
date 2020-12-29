@@ -22,10 +22,18 @@ apply from: "$rootDir/ktlint.gradle"
 
 kotlin {
     jvm()
-    js {
+    js(BOTH) {
         browser()
         nodejs()
     }
+    androidNativeArm32()
+    androidNativeArm64()
+    linuxArm64()
+    linuxArm32Hfp()
+    linuxMips32()
+    linuxMipsel32()
+    linuxX64()
+    wasm32()
     sourceSets {
         commonMain {
             dependencies {
