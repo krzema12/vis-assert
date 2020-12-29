@@ -1,14 +1,8 @@
 [![Build Status](https://travis-ci.com/krzema12/PlotAssert.svg?branch=master)](https://travis-ci.com/krzema12/PlotAssert) [![codecov](https://codecov.io/gh/krzema12/PlotAssert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/PlotAssert)
 
-# ⚠️ Release status
+# 🧪 This library is experimental!
 
-This library is in a "proof of concept" stage:
-* the API is unstable and may change in a non-backward-compatible way,
-* it's hard to write the tests, it requires creating the visualization column by column
-* failed assertions produce messages that are hard to relate to the function
-* it contains several known bugs
-
-Feel free to experiment with it, but avoid using in production.
+Its API is not stabilized yet, and writing tests is still a bit tedious. Use at your own risk. Looking forward to your feedback :)
 
 # What is PlotAssert?
 
