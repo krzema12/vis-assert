@@ -1,74 +1,27 @@
 buildscript {
     repositories {
+        mavenCentral()
         jcenter()
+        google()
+        maven { url "https://dl.bintray.com/korlibs/korlibs/" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
+
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath("com.soywiz.korlibs:easy-kotlin-mpp-gradle-plugin:0.12.3")
     }
 }
 
 plugins {
-    id 'kotlin-multiplatform' version '1.4.21'
     id 'jacoco'
 }
-repositories {
-    mavenCentral()
-}
+
+apply plugin: com.soywiz.korlibs.KorlibsPlugin
+
 group 'it.krzeminski'
 version '0.2.0-beta'
 
-apply plugin: 'maven-publish'
 apply from: "$rootDir/ktlint.gradle"
-
-kotlin {
-    jvm()
-    js(BOTH) {
-        browser()
-        nodejs()
-    }
-    androidNativeArm32()
-    androidNativeArm64()
-    linuxArm64()
-    linuxArm32Hfp()
-    linuxMips32()
-    linuxMipsel32()
-    linuxX64()
-    wasm32()
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-common'
-                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-            }
-        }
-        jvmMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-            }
-        }
-        jvmTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test'
-                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-            }
-        }
-        jsMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
-            }
-        }
-        jsTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-js'
-            }
-        }
-    }
-}
 
 jacoco {
     toolVersion = '0.8.3'
