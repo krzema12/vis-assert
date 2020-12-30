@@ -19,7 +19,7 @@ plugins {
 apply plugin: com.soywiz.korlibs.KorlibsPlugin
 
 group 'it.krzeminski'
-version '0.2.0-beta'
+version '0.3.0-beta'
 
 apply from: "$rootDir/ktlint.gradle"
 
