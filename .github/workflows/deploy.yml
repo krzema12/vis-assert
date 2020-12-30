@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+  BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+
+jobs:
+  publish-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: CALL gradlew.bat --no-daemon
+        shell: cmd
+      - run: CALL gradlew.bat --no-daemon assemble check publishMingwX64PublicationToMavenRepository
+        shell: cmd
+  publish-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew
+      - run: ./gradlew assemble check publish -x publishKotlinMultiplatformPublicationToMavenRepository
+  publish-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew --no-daemon
+      - run: ./gradlew --no-daemon  assemble check lint testDebugUnitTest publishKotlinMultiplatformPublicationToMavenRepository publishLinuxX64PublicationToMavenRepository
+
+  publish-finalize:
+    needs: [publish-windows, publish-mac, publish-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew actuallyPublishBintray
