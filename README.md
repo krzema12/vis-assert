@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.com/krzema12/PlotAssert.svg?branch=master)](https://travis-ci.com/krzema12/PlotAssert) [![codecov](https://codecov.io/gh/krzema12/PlotAssert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/PlotAssert)
+[![Build Status](https://travis-ci.com/krzema12/plot-assert.svg?branch=master)](https://travis-ci.com/krzema12/plot-assert) [![codecov](https://codecov.io/gh/krzema12/plot-assert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/plot-assert)
 
 # 🧪 This library is experimental!
 
 Its API is not stabilized yet, and writing tests is still a bit tedious. Use at your own risk. Looking forward to your feedback :)
 
-# What is PlotAssert?
+# What is plot-assert?
 
 It's a Kotlin library to write visually appealing ASCII-art-like test assertions for math functions. For example, you
 can test that your `(Float) -> Float` function describing a sine wave produces proper values. Or if you have a game
@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    testCompile "it.krzeminski:PlotAssert:0.2.0-beta"
+    testCompile "it.krzeminski:plot-assert:0.2.0-beta"
 }
 ```
 
@@ -99,7 +99,7 @@ Where:
 There's also `i` constraint, which just checks that all values are in a certain range.
 
 More examples can be found in unit tests for [krzema12/fsynth](https://github.com/krzema12/fsynth) - a project that
-PlotAssert was created for.
+plot-assert was created for.
 
 # Limitations
 
@@ -110,5 +110,5 @@ PlotAssert was created for.
   as long as it can be presented as a `(Float) -> Float` function. See [this example](https://github.com/krzema12/fsynth/blob/feb05893b14fba0f7a780dc546d1ad806bb2bfbf/core/src/test/kotlin/it/krzeminski/fsynth/RenderingTest.kt#L23)
   for adapting an `(Int) -> Float` function
 * when assertions fail, the current message just says about failed first (x, y) constraint, going from the left. It's
-  thus quite time-consuming to write a test. Ideally, if the assertion fails, PlotAssert should show how the ASCII
+  thus quite time-consuming to write a test. Ideally, if the assertion fails, plot-assert should show how the ASCII
   visualisation could look like.
