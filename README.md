@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    testCompile "it.krzeminski:plot-assert:0.2.0-beta"
+    testCompile "it.krzeminski:plot-assert:0.3.0-beta"
 }
 ```
 
