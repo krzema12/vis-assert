@@ -7,7 +7,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'plot-assert'
+rootProject.name = 'vis-assert'
 
 
 enableFeaturePreview('GRADLE_METADATA')
