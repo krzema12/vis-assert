@@ -18,7 +18,7 @@ plugins {
 
 apply plugin: com.soywiz.korlibs.KorlibsPlugin
 
-group 'it.krzeminski'
+group 'it.krzeminski.vis-assert'
 version '0.3.0-beta'
 
 apply from: "$rootDir/ktlint.gradle"
