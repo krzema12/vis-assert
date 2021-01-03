@@ -16,17 +16,27 @@ looks at a single X value of the function and performs a certain check on its Y 
 
 # Installation
 
-In your `build.gradle`:
+In your `build.gradle` or `build.gradle.kts`:
 
 ```
 repositories {
-    maven {
-        url "https://dl.bintray.com/krzema1212/it.krzeminski"
-    }
+    jcenter()
 }
 
 dependencies {
-    testCompile "it.krzeminski:vis-assert:0.3.0-beta"
+    testCompile("it.krzeminski.vis-assert:vis-assert:0.4.0-beta")
+}
+
+// or
+
+kotlin {
+    sourceSets {
+        val ...Test by getting {
+            dependencies {
+                implementation("it.krzeminski.vis-assert:vis-assert:0.4.0-beta")
+            }
+        }
+    }
 }
 ```
 
