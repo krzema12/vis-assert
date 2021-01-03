@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/krzema12/vis-assert.svg?branch=master)](https://travis-ci.com/krzema12/vis-assert) [![codecov](https://codecov.io/gh/krzema12/vis-assert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/vis-assert)
+[![Build Status](https://travis-ci.com/krzema12/vis-assert.svg?branch=master)](https://travis-ci.com/krzema12/vis-assert) [![Download](https://api.bintray.com/packages/krzema1212/it.krzeminski/vis-assert/images/download.svg)](https://bintray.com/krzema1212/it.krzeminski/vis-assert/_latestVersion) [![codecov](https://codecov.io/gh/krzema12/vis-assert/branch/master/graph/badge.svg)](https://codecov.io/gh/krzema12/vis-assert)
 
 # 🧪 This library is experimental!
 
