@@ -1,9 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
-        jcenter()
         google()
-        maven { url "https://dl.bintray.com/korlibs/korlibs/" }
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
