@@ -35,3 +35,9 @@ jobs:
       - run: ./gradlew --no-daemon
       - run: ./gradlew --no-daemon  assemble check lint testDebugUnitTest publishKotlinMultiplatformPublicationToMavenRepository publishLinuxX64PublicationToMavenRepository
 
+  publish-finalize:
+    needs: [publish-windows, publish-mac, publish-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew releaseMavenCentral
