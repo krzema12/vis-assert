@@ -20,11 +20,11 @@ In your `build.gradle` or `build.gradle.kts`:
 
 ```
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    testCompile("it.krzeminski.vis-assert:vis-assert:0.4.0-beta")
+    testCompile("it.krzeminski.vis-assert:vis-assert:0.4.1-beta")
 }
 
 // or
@@ -33,7 +33,7 @@ kotlin {
     sourceSets {
         val ...Test by getting {
             dependencies {
-                implementation("it.krzeminski.vis-assert:vis-assert:0.4.0-beta")
+                implementation("it.krzeminski.vis-assert:vis-assert:0.4.1-beta")
             }
         }
     }
